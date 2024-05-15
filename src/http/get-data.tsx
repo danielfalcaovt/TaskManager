@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
 
-export default async function getData (jwt: string): Promise<AxiosResponse<any, any> | boolean> {
+export default async function getData (token: string): Promise<AxiosResponse<any, any> | boolean> {
   try {
     const config = {
-      headers: { Authorization: `Bearer ${jwt}` }
+      headers: { Authorization: `Bearer ${token}` }
     }
     const dbResponse = await axios.get(
       'http://192.168.1.67:8080/api',

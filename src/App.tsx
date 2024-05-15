@@ -13,8 +13,8 @@ export default function App() {
   const [data, setData] = useState('')
 
   const verifyJWT = () => {
-    const jwt = Cookies.get('jwt')
-    if (jwt && typeof jwt === 'string') {
+    const token = Cookies.get('token')
+    if (token && typeof token === 'string') {
       setAuth(true)
       return true
     }else {
