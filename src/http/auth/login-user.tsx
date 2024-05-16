@@ -7,13 +7,9 @@ export default async function loginUser(email: string, password: string) {
       password
     }
     const response = await axios.post('http://localhost:3000/login', userData)
-    if (response.statusText === 'OK') {
-      return response.data
-    }else {
-      return false
-    }
+    return response
   } catch (error) {
     console.log(error)
-    return false
+    return error
   }
 };

@@ -10,9 +10,9 @@ export default async function registerUser(username:string, email: string, passw
     }
     const response = await axios.post('http://localhost:3000/register', userData)
     if (response.statusText === 'OK') {
-      return response.data
+      return true
     }else if (response.status === 400) {
-      return response.message
+      return false
     }else {
       return false
     }
