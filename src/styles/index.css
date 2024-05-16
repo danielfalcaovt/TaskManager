@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/*
+ ocean blue : #7266F8
+ purple : #3C009E
+ yellow : #FCD12A
+ gray : #171717
+ black : #0A0A0A
+*/
+:root {
+  --oceanBlue: #7266F8;
+  --purple: #3C009E;
+  --yellow: #FCD12A;
+  --gray: #171717;
+  --black: #0A0A0A;
+}
+
 .error-container {
   position: fixed;
   background: rgba(255, 255, 255, 0.836);
@@ -31,4 +47,37 @@
   font-weight: 400;
   max-width: 80%;
   max-height: 50%;
+}
+
+
+/* APP DESIGN */
+
+* {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+#app {
+  background: var(--gray);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 0.2fr 0.5fr 0.3fr;
+  grid-template-rows: 0.1fr 0.9fr;
+}
+
+.button {
+  cursor: pointer;
+  height: 33px;
+  width: 33px;
+  color: white;
+  background: #303030;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px;
+  outline: 0px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.103);
 }

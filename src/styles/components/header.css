@@ -1,0 +1,31 @@
+header {
+  grid-area: 1/1/1/4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header>div {
+  margin: 0px 30px;
+}
+
+header img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#header-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#header-icon>h1 {
+  font-size: 1rem;
+  color: white;
+}
+
+#header-buttons {
+  display: flex;
+}

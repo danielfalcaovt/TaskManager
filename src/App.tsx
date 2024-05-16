@@ -7,10 +7,14 @@ import { DataContext } from "./context/data/data-context";
 import Login from "./routes/Login";
 import Cookies from 'js-cookie'
 import Register from "./routes/Register";
-import Task from "./pages/task";
-import Week from "./pages/week";
-import User from "./pages/user";
+import User from "./pages/User";
+import Home from "./components/home";
 import './styles/index.css'
+import Analytic from "./pages/Analytic";
+import CalendarPage from "./pages/CalendarPage";
+import DayMessage from "./pages/DayMessage";
+import Notice from "./pages/Notice";
+import Config from "./pages/Config";
 
 export default function App() {
   const [auth, setAuth] = useState(false)
@@ -29,25 +33,30 @@ export default function App() {
   }, [token])
 
   return (
-    <authContext.Provider value={{auth, setAuth}}>
+    <authContext.Provider value={{ auth, setAuth }}>
       <BrowserRouter>
         <Routes>
-          <Route 
-          path='/' 
-          element={
-            <RotasProtegidas>
-              <DataContext.Provider value={{data, setData}}>
-                <Root />
-              </DataContext.Provider>
-            </RotasProtegidas>
-          }>
-            <Route path="task" element={<Task/>}/>
-            <Route path="week" element={<Week/>}/>
-            <Route path="user" element={<User/>}/>
+          <Route
+            path='/'
+            element={
+              <RotasProtegidas>
+                <DataContext.Provider value={{ data, setData }}>
+                  <Root />
+                </DataContext.Provider>
+              </RotasProtegidas>
+            }>
+            <Route path="/" element={<Home />} />
+            <Route path="analytic" element={<Analytic />} />
+            <Route path="calendar" element={<CalendarPage />} />
+            <Route path="daymessage" element={<DayMessage />} />
+            <Route path="profile" element={<User />} />
+            <Route path="config" element={<Config/>}/>
+            <Route path="notice" element={<Notice/>}/>
+            <Route path="/*" element={<Navigate to="/"/>} />
           </Route>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/register" element={<Register />}/>
-          <Route path="/*" element={<Navigate to="/login" />}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </authContext.Provider>
