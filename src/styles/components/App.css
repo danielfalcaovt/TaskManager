@@ -1,0 +1,16 @@
+:root {
+  --oceanBlue: #7266F8;
+  --purple: #3C009E;
+  --yellow: #FCD12A;
+  --gray: #171717;
+  --black: #0A0A0A;
+}
+
+#app-container {
+  background: var(--black);
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

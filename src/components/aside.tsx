@@ -5,7 +5,7 @@ import '../styles/components/aside.css'
 export default function Aside() {
   return (
     <>
-      <div id="side-bar-container">
+      <aside id="side-bar-container">
         <ul id="side-buttons">
           <li>
             <Link to="home">
@@ -50,7 +50,7 @@ export default function Aside() {
           </li>
         </ul>
         <ConfigButton />
-      </div>
+      </aside>
     </>
   )
 }

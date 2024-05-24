@@ -3,44 +3,37 @@ import loginUser from "../http/auth/login-user"
 import { authContext } from "../context/auth/auth-context"
 import Cookies from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
-import '../styles/login.css'
+import '../styles/auth/login.css'
 
 export default function Login() {
   const { auth, setAuth } = useContext(authContext)
   const [hasError, setError] = useState(false)
+  const [errorText, setErrorText] = useState('')
   const navigate = useNavigate()
 
   async function handleAuth(evt: any) {
-    try {
       evt.preventDefault()
       if (!hasError) {
-
         const email = evt.target.email.value
         const password = evt.target.password.value
       if (!email || !password) {
-
+        showErrorMessage('Todos os campos devem ser preenchidos.', 400)
         return false
       }
       const user = await loginUser(email, password)
       if (user.status === 200) {
+        console.log('recebeu tudo certinho');
         navigate('/')
         Cookies.set('token', user.token, { expires: 0.3 })
         setAuth(true)
-        setError(false)
-        return false
-      } else if (user.response.status >= 400 && user.response.status < 500) {
-        showErrorMessage(user.response.data, user.response.status)
+        console.log(user)
+      } else {
         setError(true)
-        return false
+        setErrorText(user.response.data)
       }
     }
-    } catch (error) {
-      console.error(error)
-      showErrorMessage(error.response.data, error.response.status)
-      setError(true)
-      return false
-    }
   }
+
   function showPassword() {
     const passwordInput = document.querySelector("#password-input-element")
     if (passwordInput.type === 'password') {
@@ -49,27 +42,6 @@ export default function Login() {
       passwordInput.type = 'password'
     }
   }
-
-  function showErrorMessage(message: string, statusCode: number) {
-    const modal = document.querySelector(".error-container")
-    const errorMessage = document.querySelector(".error-container p")
-    const errorCode = document.querySelector(".error-container h1")
-    const modalStyle = modal.style.display
-    errorMessage.innerHTML = message
-    if (modalStyle === '' || modalStyle === 'none') {
-      modal.style.display = 'flex'
-    }
-  }
-
-  function closeErrorMessage() {
-    const modal = document.querySelector(".error-container")
-    const modalStyle = modal.style.display
-    if (modalStyle !== 'none') {
-      setError(false)
-      modal.style.display = 'none'
-    }
-  }
-
   useEffect(() => {
     if (auth) {
       console.log(auth)
@@ -79,27 +51,32 @@ export default function Login() {
 
   return (
     <>
-      <div className="error-container">
-        <div onClick={closeErrorMessage} className="error-close">
+    {hasError? 
+      <div className="error-container" style={hasError?{display: 'flex'}:{}}>
+        <div onClick={() => {setError(false)}} className="error-close">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" className="bi bi-x-circle" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
           </svg>
         </div>
         <div className="error-title">
-          <h1></h1>
-        </div>
-        <div className="error-message">
-          <p></p>
+          <h1>{errorText.toUpperCase()}</h1>
         </div>
       </div>
+      : ""}
       <div id="login-container">
+        <div className="bg-gradient gradient-1">
+
+        </div>
+        <div className="bg-gradient gradient-2">
+
+        </div>
         <main id="login-page">
           <h1>Login</h1>
           <form onSubmit={handleAuth} id="login-form" method="POST" >
             <div className="email-input">
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
                   <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />
                 </svg>
               </div>
@@ -107,7 +84,7 @@ export default function Login() {
             </div>
             <div className="password-input">
               <div id="password-input-h">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-key-fill" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-key-fill" viewBox="0 0 16 16">
                   <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
                 </svg>
               </div>

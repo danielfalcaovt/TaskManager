@@ -16,7 +16,7 @@
 
 .error-container {
   position: fixed;
-  background: rgba(255, 255, 255, 0.836);
+  color: rgba(255, 255, 255, 0.904);
   width: 50%;
   height: 100px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.185);
@@ -80,4 +80,11 @@
   outline: 0px;
   border-radius: 5px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.103);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+input:focus {
+  outline: 0px;
 }

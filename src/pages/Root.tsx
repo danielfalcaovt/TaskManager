@@ -4,6 +4,7 @@ import Nav from "../components/nav";
 import { useContext } from "react";
 import { DataContext } from "../context/data/data-context";
 import Aside from "../components/aside";
+import '../styles/components/App.css'
 
 export default function Root() {
   const { data } = useContext(DataContext)
@@ -12,7 +13,9 @@ export default function Root() {
     <div id="app">
       <Header />
       <Aside />
-      <Outlet />
+      <main id="app-container">
+        <Outlet />
+      </main>
       <Nav />
     </div>
   )
