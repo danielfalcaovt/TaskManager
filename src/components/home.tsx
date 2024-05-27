@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import '../styles/components/home.css'
 import Calendar from '../elements/Calendar';
 import { TasksContext } from '../context/data/tasks/TasksContext';
+import Task from '../elements/Task';
 
 export default function Home() {
   const [today, setToday] = useState('')
@@ -30,7 +31,7 @@ export default function Home() {
           <Calendar />
         </div>
         <div id='function-schedule'>
-          
+          <Task/>
         </div>
         <div id='projects-container'>
 

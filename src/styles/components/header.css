@@ -1,12 +1,12 @@
 header {
   grid-area: 1/1/1/4;
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
 }
 
 header>div {
-  margin: 0px 30px;
+  width: 30%;
 }
 
 header img {
@@ -17,8 +17,7 @@ header img {
 
 #header-icon {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
 }
 
 #header-icon>h1 {
@@ -28,4 +27,9 @@ header img {
 
 #header-buttons {
   display: flex;
+  justify-content: flex-end;
+}
+  
+#header-buttons>a {
+  margin: 0px 15px;
 }

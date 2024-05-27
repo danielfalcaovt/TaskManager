@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { TasksContext } from "../context/data/tasks/TasksContext"
+import axios from "axios"
+import Cookies from 'js-cookie'
 
 export default function Calendar() {
   const [calendarDays, setCalendarDays]: any = useState([])
@@ -22,11 +25,27 @@ export default function Calendar() {
     }
     setCalendarDays(allDaysInArr)
   }
-
-  function handleGetDayTasks() {
-    
+  const {tasks, setTasks} = useContext(TasksContext)
+  async function handleGetDayTasks(day: any) {
+    try {
+      
+      const jwt = Cookies.get('token')
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${jwt}`
+        }
+      }
+    const response = await axios.get('http://192.168.1.67:3000/tasks',  config)
+    console.log(response)
+    const dayTasks = {
+      day: day
+    }
+    setTasks(dayTasks)
+  } catch (error) {
+   console.log(error) 
   }
-
+  }
+  
   useEffect(() => {
     handleDaysInCalendar()
   }, [])
@@ -49,8 +68,8 @@ export default function Calendar() {
             {calendarDays.slice(0, 7).map((day) => {
               return (
                 day >= 20
-                  ? <td onClick={() => {}}><span>{day}</span></td>
-                  : <td>{day}</td>
+                  ? <td><span>{day}</span></td>
+                  : <td className={`day${day}`} onClick={() => {handleGetDayTasks(day)}}>{day}</td>
 
               )
             })}
@@ -58,7 +77,7 @@ export default function Calendar() {
           <tr>
             {calendarDays.slice(7, 14).map((day) => {
               return (
-                <td>
+                <td className={`day${day}`} onClick={() => {handleGetDayTasks(day)}}>
                   {day}
                 </td>
               )
@@ -67,7 +86,7 @@ export default function Calendar() {
           <tr>
             {calendarDays.slice(14, 21).map((day) => {
               return (
-                <td>
+                <td className={`day${day}`} onClick={() => {handleGetDayTasks(day)}}>
                   {day}
                 </td>
               )
@@ -76,7 +95,7 @@ export default function Calendar() {
           <tr>
             {calendarDays.slice(21, 28).map((day) => {
               return (
-                <td>
+                <td className={`day${day}`} onClick={() => {handleGetDayTasks(day)}}>
                   {day}
                 </td>
               )
@@ -91,7 +110,7 @@ export default function Calendar() {
                     {day}
                   </span>
                 </td>
-                : <td>{day}</td>
+                : <td className={`day${day}`} onClick={() => {handleGetDayTasks(day)}}>{day}</td>
               )
             })}
           </tr>
