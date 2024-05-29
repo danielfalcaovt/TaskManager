@@ -5,10 +5,12 @@ import Cookies from 'js-cookie'
 
 export default function Calendar() {
   const [calendarDays, setCalendarDays]: any = useState([])
+  const [taskMonth, setTaskMonth] = useState()
   function handleDaysInCalendar() {
     const allDaysInArr: number[] = []
     const anoAtual = new Date().getFullYear()
     const mesAtual = new Date().getMonth()
+    setTaskMonth(mesAtual)
     const primeiroDiaDoMes = new Date(anoAtual, mesAtual, 1).getDay()
     const ultimoDiaDoMes = new Date(anoAtual, mesAtual - 1, 0).getDate()
     const ultimosDiasDaSemana = new Date(anoAtual, mesAtual + 1, 1).getDay()
@@ -28,21 +30,29 @@ export default function Calendar() {
   const {tasks, setTasks} = useContext(TasksContext)
   async function handleGetDayTasks(day: any) {
     try {
-      
+      const user = Cookies.get('user')
       const jwt = Cookies.get('token')
       const config = {
         headers: {
           'Authorization': `Bearer ${jwt}`
         }
       }
-    const response = await axios.get('http://192.168.1.67:3000/tasks',  config)
+      taskMonth ? handleDaysInCalendar() : ''
+      const todayDate = {
+        id: user,
+        taskDay: day,
+        taskMonth: taskMonth
+      }
+    const response = await axios.post('http://192.168.1.67:3000/tasks/filter', todayDate, config)
     console.log(response)
-    const dayTasks = {
-      day: day
+    const dayTasks: object[] = []
+    for (let pos = 0; pos <= 3; pos ++) {
+      dayTasks.push(response.data[pos])
     }
     setTasks(dayTasks)
+    console.log(dayTasks)
   } catch (error) {
-   console.log(error) 
+    console.log(error) 
   }
   }
   

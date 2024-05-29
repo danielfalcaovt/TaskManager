@@ -23,6 +23,8 @@ export default function Login() {
       const user = await loginUser(email, password)
       if (user.status === 200) {
         navigate('/')
+        console.log(user)
+        Cookies.set('user', user.data.user.id, { expires: 0.3 })
         Cookies.set('token', user.data.token, { expires: 0.3 })
         setAuth(true)
       } else {
