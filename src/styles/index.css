@@ -6,6 +6,15 @@
  gray : #171717
  black : #0A0A0A
 */
+
+* {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 :root {
   --oceanBlue: #7266F8;
   --purple: #3C009E;

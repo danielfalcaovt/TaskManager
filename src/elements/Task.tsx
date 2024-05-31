@@ -1,36 +1,36 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { TasksContext } from "../context/data/tasks/TasksContext"
 
 export default function Task() {
   const { tasks, setTasks } = useContext(TasksContext)
-  console.log(tasks)
+
   return (
     <section id="task-container">
-              <div id="task-header">
-                <h1>Tasks</h1>
-                <h2 id="task-day"></h2>
-              </div>
+      <div id="task-header">
+        <h1>Tasks</h1>
+        <h2 id="task-day"></h2>
+      </div>
+      <ul className="task-receiver">
       {
         tasks && tasks.map((task) => {
           return (
             <>
-            {task? 
-              <div id="task-body">
-                <ul className="task-receiver">
-                  <li className="active-task">
-                      <h1 className="active-task-type">{task.task_name}</h1>
-                    <div className="task-divisor-bar"></div>
-                    <div className="active-task-about">
-                      <h2 className="active-task-name">{task.task_text}</h2>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            :''}
+              {task ?
+                    <li className="active-task">
+                      <h1 className="active-task-day">{(task.task_day >= 1 && task.task_day <= 9 )?'0':''}{task.task_day}/{(task.task_month >= 1 && task.task_month <= 9 )?'0':''}{task.task_month}</h1>
+                      <div className="task-divisor-bar"></div>
+                      <div className="active-task-about">
+                        <h1>{task.task_name}</h1>
+                        <h2>{task.task_text}</h2>
+                      </div>
+                    </li>
+                : ''}
+              {tasks.message && tasks.message}
             </>
           )
         })
       }
+      </ul>
     </section>
   )
 }
