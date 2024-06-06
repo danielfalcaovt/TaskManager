@@ -28,6 +28,10 @@ export default function App() {
     }
   }
 
+  async function getAllUserNotes() {
+    
+  }  
+
   useEffect(() => {
     verifyJWT(token)
   }, [token])
