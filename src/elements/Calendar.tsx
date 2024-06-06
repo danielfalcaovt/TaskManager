@@ -60,6 +60,13 @@ export default function Calendar() {
     }
   }
 
+  function checkIfHaveDayInCalendar() {
+    const checkDay = Cookies.get('day')
+    if (checkDay) {
+      handleGetDayTasks(checkDay)
+    }
+  }
+
   async function fetchCalendarTask(evt) {
     evt.preventDefault()
     const taskName = evt.target.taskName.value
@@ -81,6 +88,7 @@ export default function Calendar() {
         taskMonth: new Date().getMonth()
       }
       await axios.post('http://localhost:3000/tasks', httpRequest, config)
+      Cookies.set('day', selectedDay)
       window.location.reload()
     }
   }

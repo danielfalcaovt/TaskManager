@@ -100,7 +100,7 @@ export default function Register() {
               <input type="password" placeholder="Confirm Password" id="cpassword-input-element" name="confirmPassword"></input>
             </div>
             <div className="login-link">
-              <Link to='/login'>Aren't Registered?</Link>
+              <Link to='/login'>Already Registered?</Link>
             </div>
             <button id="send-button">Register</button>
           </form>

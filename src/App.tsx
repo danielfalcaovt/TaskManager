@@ -10,11 +10,11 @@ import Register from "./routes/Register";
 import User from "./pages/User";
 import Home from "./components/home";
 import './styles/index.css'
-import Analytic from "./pages/Analytic";
 import CalendarPage from "./pages/CalendarPage";
 import DayMessage from "./pages/DayMessage";
 import Notice from "./pages/Notice";
 import Config from "./pages/Config";
+import Notes from "./pages/Notes";
 
 export default function App() {
   const [auth, setAuth] = useState(false)
@@ -46,7 +46,7 @@ export default function App() {
               </RotasProtegidas>
             }>
             <Route path="/" element={<Home />} />
-            <Route path="analytic" element={<Analytic />} />
+            <Route path="notes" element={<Notes />} />
             <Route path="calendar" element={<CalendarPage />} />
             <Route path="daymessage" element={<DayMessage />} />
             <Route path="profile" element={<User />} />

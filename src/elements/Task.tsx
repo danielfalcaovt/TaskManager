@@ -15,7 +15,7 @@ export default function Task() {
         tasks && tasks.map((task) => {
           return (
             <>
-              {task ?
+              {task && typeof task !== 'string' ?
                     <li className="active-task">
                       <h1 className="active-task-day">{(task.task_day >= 1 && task.task_day <= 9 )?'0':''}{task.task_day}/{(task.task_month >= 1 && task.task_month <= 9 )?'0':''}{task.task_month}</h1>
                       <div className="task-divisor-bar"></div>
@@ -25,7 +25,6 @@ export default function Task() {
                       </div>
                     </li>
                 : ''}
-              {tasks.message && tasks.message}
             </>
           )
         })

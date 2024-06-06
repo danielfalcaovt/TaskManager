@@ -100,7 +100,7 @@ export default function Login() {
               </div>
             </div>
             <div className="login-link">
-              <Link to='/register'>Already Registered?</Link>
+              <Link to='/register'>Aren't Registered?</Link>
             </div>
             <button id="send-button">Login</button>
           </form>

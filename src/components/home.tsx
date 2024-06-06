@@ -24,7 +24,7 @@ export default function Home() {
     <TasksContext.Provider value={{tasks, setTasks}}>
       <section id="home-container">
         <div id="functions-title">
-          <h1>Today</h1>
+          <h1>Hoje</h1>
           <h2>{today}</h2>
         </div>
         <div id='function-calendar'>
