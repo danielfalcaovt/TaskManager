@@ -1,6 +1,5 @@
 import { notes } from "./notesData"
 import '../styles/components/notes.css'
-import { useEffect } from "react"
 
 export default function Notes() {
   return (

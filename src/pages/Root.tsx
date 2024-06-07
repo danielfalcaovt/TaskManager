@@ -5,10 +5,13 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/data/data-context";
 import Aside from "../components/aside";
 import '../styles/components/App.css'
+import getUser from "../http/data/users/get-user";
+import Cookies from 'js-cookie'
 
 export default function Root() {
-  const { data } = useContext(DataContext)
+  const { data, setData } = useContext(DataContext)
   const [load, setLoading] = useState(true)
+  const jwt = Cookies.get('token')
 
   useEffect(() => {
     setLoading(false)

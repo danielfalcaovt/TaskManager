@@ -4,9 +4,13 @@ import { authContext } from "../context/auth/auth-context"
 import Cookies from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
 import '../styles/auth/login.css'
+import { DataContext } from "../context/data/data-context"
+import { UserContext } from "../context/data/user-context"
 
 export default function Login() {
   const { auth, setAuth } = useContext(authContext)
+  const { user, setUser } = useContext(UserContext)
+  const { data, setData } = useContext(DataContext)
   const [hasError, setError] = useState(false)
   const [errorText, setErrorText] = useState('')
   const navigate = useNavigate()
@@ -22,8 +26,9 @@ export default function Login() {
       }
       const user = await loginUser(email, password)
       if (user.status === 200) {
+        console.log(user.data)
+        setUser(user.data)
         navigate('/')
-        console.log(user)
         Cookies.set('user', user.data.user.id, { expires: 0.3 })
         Cookies.set('token', user.data.token, { expires: 0.3 })
         setAuth(true)

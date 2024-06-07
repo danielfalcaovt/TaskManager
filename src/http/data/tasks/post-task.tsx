@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-export default async function postTask (data: string[] ,token: string): Promise<AxiosResponse<any, any> | boolean> {
+export default async function postTask (data: string[], token: string): Promise<AxiosResponse<any, any> | boolean> {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }

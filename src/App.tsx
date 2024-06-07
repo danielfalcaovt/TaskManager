@@ -15,10 +15,12 @@ import DayMessage from "./pages/DayMessage";
 import Notice from "./pages/Notice";
 import Config from "./pages/Config";
 import Notes from "./pages/Notes";
+import { UserContext } from "./context/data/user-context";
 
 export default function App() {
   const [auth, setAuth] = useState(false)
-  const [data, setData] = useState('')
+  const [data, setData] = useState({})
+  const [user, setUser] = useState({})
   const token = Cookies.get('token')
 
   const verifyJWT = (jwt: string) => {
@@ -28,41 +30,40 @@ export default function App() {
     }
   }
 
-  async function getAllUserNotes() {
-    
-  }  
-
   useEffect(() => {
     verifyJWT(token)
   }, [token])
 
   return (
     <authContext.Provider value={{ auth, setAuth }}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <RotasProtegidas>
-                <DataContext.Provider value={{ data, setData }}>
-                  <Root />
-                </DataContext.Provider>
-              </RotasProtegidas>
-            }>
-            <Route path="/" element={<Home />} />
-            <Route path="notes" element={<Notes />} />
-            <Route path="calendar" element={<CalendarPage />} />
-            <Route path="daymessage" element={<DayMessage />} />
-            <Route path="profile" element={<User />} />
-            <Route path="config" element={<Config/>}/>
-            <Route path="notice" element={<Notice/>}/>
-            <Route path="/*" element={<Navigate to="/"/>} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/*" element={<Navigate to="/login" />} />
-        </Routes>
-      </BrowserRouter>
+      <DataContext.Provider value={{ data, setData }}>
+        <UserContext.Provider value={{ user, setUser }}>  
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <RotasProtegidas>
+                    <Root />
+                  </RotasProtegidas>
+                }>
+                <Route path="/" element={<Home />} />
+                <Route path="notes" element={<Notes />} />
+                <Route path="calendar" element={<CalendarPage />} />
+                <Route path="daymessage" element={<DayMessage />} />
+                <Route path="profile" element={<User />} />
+                <Route path="config" element={<Config/>}/>
+                <Route path="notice" element={<Notice/>}/>
+                <Route path="forget" element={<h1>Test</h1>}/>
+                <Route path="/*" element={<Navigate to="/"/>} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/*" element={<Navigate to="/login" />} />
+            </Routes>
+          </BrowserRouter>
+        </UserContext.Provider>
+      </DataContext.Provider>
     </authContext.Provider>
   )
 }
