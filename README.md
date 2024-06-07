@@ -2,9 +2,9 @@
 <h1>Bem-vindo ao TaskManager: Gerenciador de Tarefas e Organizador Pessoal!</h1>
 
 <h2>Está cansado de se sentir sobrecarregado com suas tarefas diárias? Deseja manter-se organizado e produtivo, mas está faltando a ferramenta certa? Apresentamos o TaskManager, a solução definitiva para simplificar sua vida e aumentar sua eficiência.</h2>
-<p>
+<h3>
 Com o TaskManager, você tem acesso a uma variedade de recursos poderosos para ajudá-lo a organizar suas tarefas, priorizar seus compromissos e manter-se motivado diariamente.
-</p>
+</h3>
 <h1>
 Calendário Dinâmico:
 </h1>
