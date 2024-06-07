@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1>Bem-vindo ao TaskManager: Gerenciador de Tarefas e Organizador Pessoal!</h1>
 
-Currently, two official plugins are available:
+<h2>Está cansado de se sentir sobrecarregado com suas tarefas diárias? Deseja manter-se organizado e produtivo, mas está faltando a ferramenta certa? Apresentamos o TaskManager, a solução definitiva para simplificar sua vida e aumentar sua eficiência.</h2>
+<h3>
+Com o TaskManager, você tem acesso a uma variedade de recursos poderosos para ajudá-lo a organizar suas tarefas, priorizar seus compromissos e manter-se motivado diariamente.
+</h3>
+<h1>
+Calendário Dinâmico:
+</h1>
+<p>Visualize seu mês de forma clara e atribua tarefas a dias específicos com apenas alguns cliques. Nunca mais esqueça um compromisso importante!</p>
+<h1>
+Gerenciador de Tarefas:
+</h1>
+<p>Atribua tarefas a datas específicas e mantenha-se atualizado sobre o que precisa ser feito a qualquer momento. Nunca perca de vista uma única responsabilidade.</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h1>Notas Personalizadas:</h1>
+<p>Crie notas com títulos e textos para capturar ideias, lembretes ou informações importantes. Mantenha todas as suas notas em um só lugar para fácil acesso quando necessário.</p>
 
-## Expanding the ESLint configuration
+<h1>Frase Motivacional do Dia:</h1>
+<p>Prepare-se para enfrentar cada dia com otimismo com nossa inspiradora frase do dia. Levante seu ânimo mesmo nos dias mais desafiadores!</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<h1>Configuração de Usuário:</h1>
+<p>
+Gerencie suas preferências e atualize suas informações de conta conforme necessário. Customize sua experiência de acordo com suas necessidades individuais.
+</p>
 
-- Configure the top-level `parserOptions` property like this:
+<h1>Caixa de Notificações:</h1>
+<p>  
+Fique por dentro das últimas atualizações da aplicação e receba lembretes importantes sobre tarefas pendentes. Nunca mais deixe escapar um prazo importante.
+</p>
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+<h2>O TaskManager é mais do que apenas um aplicativo; é seu parceiro de produtividade e organização pessoal. Simplifique sua vida hoje mesmo com o TaskManager e assuma o controle de suas tarefas como nunca antes!</h2>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+
+
+
