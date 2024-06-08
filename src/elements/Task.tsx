@@ -1,5 +1,4 @@
-import { useContext, useEffect } from "react"
-import { TasksContext } from "../context/data/tasks/TasksContext"
+import { useContext } from "react"
 import { DataContext } from "../context/data/data-context"
 
 export default function Task() {
