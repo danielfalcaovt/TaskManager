@@ -16,13 +16,13 @@ export default function User() {
     <section id="user">
       <div id="user-container">
         {
-          data.data ? (
+          data.user ? (
             <form onSubmit={handleUser} method="POST">
-              <input type="text" placeholder={data.data.username} name="username"></input>
-              <input type="email" placeholder={data.data.email} name="email"></input>
+              <input type="text" placeholder={data.user.username} name="username"></input>
+              <input type="email" placeholder={data.user.email} name="email"></input>
               <input type="password" placeholder="********" name="password"></input>
             </form>
-          ) : ''
+          ) : 'Usuário não encontrado'
         }
       </div>
     </section>

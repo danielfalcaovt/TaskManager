@@ -37,7 +37,7 @@ export default function App() {
   return (
     <authContext.Provider value={{ auth, setAuth }}>
       <DataContext.Provider value={{ data, setData }}>
-        <UserContext.Provider value={{ user, setUser }}>  
+        <UserContext.Provider value={{ user, setUser }}>
           <BrowserRouter>
             <Routes>
               <Route

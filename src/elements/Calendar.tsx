@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import { TasksContext } from "../context/data/tasks/TasksContext"
 import axios from "axios"
 import Cookies from 'js-cookie'
+import { DataContext } from "../context/data/data-context"
 
 export default function Calendar() {
   const [calendarDays, setCalendarDays]: any = useState([])
@@ -29,7 +29,7 @@ export default function Calendar() {
     setCalendarDays(allDaysInArr)
   }
 
-  const { tasks, setTasks } = useContext(TasksContext)
+  const { data, setData } = useContext(DataContext)
   const [selectedDay, setSelectedDay] = useState()
   async function handleGetDayTasks(day: any) {
     try {
@@ -48,22 +48,28 @@ export default function Calendar() {
         taskMonth: taskMonth
       }
       const response = await axios.post('http://192.168.1.67:3000/tasks/filter', todayDate, config)
-      console.log(response)
-      const dayTasks: object[] = []
+      if (!response.data.error) {
+        const dayTasks: object[] = []
       for (let pos = 0; pos <= 3; pos++) {
         dayTasks.push(response.data[pos])
       }
-      setTasks(dayTasks)
-      console.log(dayTasks)
+      setData((oldValue) => {
+        delete oldValue.error
+        return {
+          ...oldValue,
+          tasks: dayTasks
+          }
+        })
+      } else {
+        setData((oldValue) => {
+          return {
+            ...oldValue,
+            tasks: response.data
+          }          
+        })
+      }
     } catch (error) {
-      setTasks(error)
-    }
-  }
-
-  function checkIfHaveDayInCalendar() {
-    const checkDay = Cookies.get('day')
-    if (checkDay) {
-      handleGetDayTasks(checkDay)
+      console.log(error)
     }
   }
 

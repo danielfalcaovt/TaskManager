@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react"
 import { TasksContext } from "../context/data/tasks/TasksContext"
+import { DataContext } from "../context/data/data-context"
 
 export default function Task() {
-  const { tasks, setTasks } = useContext(TasksContext)
-
+  const { data, setData } = useContext(DataContext)
   return (
     <section id="task-container">
       <div id="task-header">
@@ -12,7 +12,7 @@ export default function Task() {
       </div>
       <ul className="task-receiver">
       {
-        tasks && tasks.map((task) => {
+       ( data.tasks && !data.tasks.error ) && data.tasks.map((task) => {
           return (
             <>
               {task && typeof task !== 'string' ?
@@ -28,6 +28,18 @@ export default function Task() {
             </>
           )
         })
+      }
+      {
+        (data.tasks && data.tasks.error) ? (
+        <li className="active-task">
+          <h1 className="active-task-day">{data.tasks.task_day}/{data.tasks.task_month}</h1>
+          <div style={{background: 'red'}} className="task-divisor-bar"></div>
+          <div className="active-task-about">
+            <h1>Error</h1>
+            <h2>{data.tasks.error}</h2>
+          </div>
+        </li>
+      ) : ''
       }
       </ul>
     </section>
