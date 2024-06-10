@@ -8,9 +8,8 @@ export default function Home() {
 
   function handleNewDay() {
     const todayDate = new Date()
-    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-    const dateText = `${todayDate.getDay()}, ${monthNames[todayDate.getMonth()]} de ${todayDate.getFullYear()}`
+    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+    const dateText = `${todayDate.getDate()}, ${monthNames[todayDate.getMonth()]} de ${todayDate.getFullYear()}`
     setToday(dateText)
   }
 

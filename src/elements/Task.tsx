@@ -31,10 +31,10 @@ export default function Task() {
       {
         (data.tasks && data.tasks.error) ? (
         <li className="active-task">
-          <h1 className="active-task-day">{data.tasks.task_day}/{data.tasks.task_month}</h1>
+          <h1 className="active-task-day">{data.tasks.task_day < 10 ? '0' : ''}{data.tasks.task_day}/{data.tasks.task_month < 10 ? '0' : ''}{data.tasks.task_month}</h1>
           <div style={{background: 'red'}} className="task-divisor-bar"></div>
           <div className="active-task-about">
-            <h1>Error</h1>
+            <h1>Sem Tarefas</h1>
             <h2>{data.tasks.error}</h2>
           </div>
         </li>

@@ -15,6 +15,21 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 25px;
+  cursor: default;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(221, 221, 221);
+}
+
 :root {
   --oceanBlue: #7266F8;
   --purple: #3C009E;
@@ -90,8 +105,7 @@
   border-radius: 5px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.103);
 }
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
+input:-webkit-autofill, input:-webkit-autofill:focus {
   transition: background-color 0s 600000s, color 0s 600000s !important;
 }
 input:focus {

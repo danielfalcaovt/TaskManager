@@ -1,3 +1,11 @@
+:root {
+  --oceanBlue: #7266F8;
+  --purple: #3C009E;
+  --yellow: #FCD12A;
+  --gray: #171717;
+  --black: #0A0A0A;
+}
+
 #notes {
   height: 100%;
   width: 100%;
@@ -9,9 +17,82 @@
 
 #notes-container-title {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  width: 100%;
   align-items: center;
   color: white;
   font-weight: 700;
   font-size: 1.5rem;
+}
+
+#notes-container-title>form {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 10px 20px;
+  align-items: center;
+  border: 1px rgba(255, 255, 255, 0.26) solid;
+  background: #070707;
+  border-radius: 15px;
+  box-shadow: 2px 2px 3px black;
+  position: relative;
+}
+
+#notes-container-title>form>span {
+  font-size: 0.7rem;
+  position: absolute;
+  bottom: 15px;
+  right: 5px;
+}
+
+#noteTitle {
+  grid-area: 1/1/2/2;
+  height: 50%;
+  background: transparent;
+  color: white;
+  font-size: 1.2rem;
+}
+
+#noteTitle::placeholder {
+  font-weight: 500;
+  color: white;
+}
+
+#noteText {
+  grid-area: 2/1/2/1;
+  background: transparent;
+  color: white;
+  resize: none;
+  overflow: visible;
+}
+
+#noteText:focus {
+  border: 0px;
+  outline: 0px;
+}
+
+#notes-container-title>form>button {
+  position: absolute;
+  right: -50px;
+  border-radius: 25%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.514);
+  transition: all 0.3s;
+}
+
+#notes-container-title>form>button:hover {
+  transform: scale(1.1);
+
+}
+
+#notes-container-title>form>button:active {
+  background: rgb(224, 224, 224);
 }
