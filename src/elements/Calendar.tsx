@@ -108,82 +108,86 @@ export default function Calendar() {
       <div id="calendar">
         <h1>Calendário</h1>
         <table>
-          <tr>
-            <th>Dom</th>
-            <th>Seg</th>
-            <th>Ter</th>
-            <th>Qua</th>
-            <th>Qui</th>
-            <th>Sex</th>
-            <th>Sáb</th>
-          </tr>
-          <tr>
-            {calendarDays.slice(0, 7).map((day) => {
-              return (
-                day >= 20
-                  ? <td><span>{day}</span></td>
-                  : <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>{day}</td>
+          <thead>
+            <tr>
+              <th>Dom</th>
+              <th>Seg</th>
+              <th>Ter</th>
+              <th>Qua</th>
+              <th>Qui</th>
+              <th>Sex</th>
+              <th>Sáb</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {calendarDays.slice(0, 7).map((day) => {
+                return (
+                  day >= 20
+                    ? <td key={`${day}bmonth`}><span>{day}</span></td>
+                    : <td key={day} className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>{day}</td>
 
-              )
-            })}
-          </tr>
-          <tr>
-            {calendarDays.slice(7, 14).map((day) => {
-              return (
-                <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>
-                  {day}
-                </td>
-              )
-            })}
-          </tr>
-          <tr>
-            {calendarDays.slice(14, 21).map((day) => {
-              return (
-                <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>
-                  {day}
-                </td>
-              )
-            })}
-          </tr>
-          <tr>
-            {calendarDays.slice(21, 28).map((day) => {
-              return (
-                <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>
-                  {day}
-                </td>
-              )
-            })}
-          </tr>
-          <tr>
-            {calendarDays.slice(28, 35).map((day) => {
-              return (
-                day <= 7
-                  ? <td onClick={() => { }}>
-                    <span>
-                      {day}
-                    </span>
+                )
+              })}
+            </tr>
+            <tr>
+              {calendarDays.slice(7, 14).map((day) => {
+                return (
+                  <td key={day} className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>
+                    {day}
                   </td>
-                  : <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>{day}</td>
-              )
-            })}
-          </tr>
-          {
-            calendarDays[35] ? (
-              <tr>
-                {calendarDays.slice(35, 42).map((day) => {
-                  return (
-                    day <= 7
-                      ? <td onClick={() => { }}>
-                        <span>
-                          {day}
-                        </span>
-                      </td>
-                      : <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>{day}</td>
-                  )
-                })}
-              </tr>
-            ) : ''
-          }
+                )
+              })}
+            </tr>
+            <tr>
+              {calendarDays.slice(14, 21).map((day) => {
+                return (
+                  <td key={day} className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>
+                    {day}
+                  </td>
+                )
+              })}
+            </tr>
+            <tr>
+              {calendarDays.slice(21, 28).map((day) => {
+                return (
+                  <td key={day} className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>
+                    {day}
+                  </td>
+                )
+              })}
+            </tr>
+            <tr>
+              {calendarDays.slice(28, 35).map((day) => {
+                return (
+                  day <= 7
+                    ? <td key={day} onClick={() => { }}>
+                      <span>
+                        {day}
+                      </span>
+                    </td>
+                    : <td className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>{day}</td>
+                )
+              })}
+            </tr>
+            {
+              calendarDays[35] ? (
+                <tr>
+                  {calendarDays.slice(35, 42).map((day) => {
+                    return (
+                      day <= 7
+                        ? <td key={`${day}bmonth`} onClick={() => { }}>
+                          <span>
+                            {day}
+                          </span>
+                        </td>
+                        : <td key={day} className={`day${day}`} onClick={() => { handleGetDayTasks(day) }}>{day}</td>
+                    )
+                  })}
+                </tr>
+              ) : ''
+            }
+          </tbody>
         </table>
         <div id="calendar-tasks">
           {

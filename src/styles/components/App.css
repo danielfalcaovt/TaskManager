@@ -11,6 +11,7 @@
   border-top-left-radius: 35px;
   border-top-right-radius: 35px;
   display: flex;
+  overflow-y: scroll;
   justify-content: center;
   align-items: center;
 }

@@ -9,6 +9,7 @@ import Cookies from 'js-cookie'
 import getNotes from "../http/data/notes/get-notes";
 import getTasks from "../http/data/tasks/get-task";
 import getUser from "../http/data/users/get-user";
+import getNotifications from "../http/data/notifications/get-notifications";
 
 export default function Root() {
   const { data, setData } = useContext(DataContext)
@@ -21,13 +22,16 @@ export default function Root() {
         const notes = await getNotes(token)
         const tasks = await getTasks(token)
         const user = await getUser(token)
+        const notification = await getNotifications(token)
         const allNotes = notes.data
         const allTasks = tasks.data
         const userInfo = user.data
+        const allNotifications = notification.data
         setData({
           tasks: allTasks,
           notes: allNotes,
-          user: userInfo
+          user: userInfo,
+          notifications: allNotifications
         })
       } catch (error) {
           console.log(error)

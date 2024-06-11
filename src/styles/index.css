@@ -26,6 +26,10 @@
   cursor: default;
 }
 
+::-webkit-scrollbar-button {
+  height: 15px;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(221, 221, 221);
 }

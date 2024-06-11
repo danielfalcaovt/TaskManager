@@ -12,10 +12,10 @@ import Home from "./components/home";
 import './styles/index.css'
 import CalendarPage from "./pages/CalendarPage";
 import DayMessage from "./pages/DayMessage";
-import Notice from "./pages/Notice";
 import Config from "./pages/Config";
 import Notes from "./pages/Notes";
 import { UserContext } from "./context/data/user-context";
+import Notification from "./pages/Notification";
 
 export default function App() {
   const [auth, setAuth] = useState(false)
@@ -53,7 +53,7 @@ export default function App() {
                 <Route path="daymessage" element={<DayMessage />} />
                 <Route path="profile" element={<User />} />
                 <Route path="config" element={<Config/>}/>
-                <Route path="notice" element={<Notice/>}/>
+                <Route path="notification" element={<Notification/>}/>
                 <Route path="forget" element={<h1>Test</h1>}/>
                 <Route path="/*" element={<Navigate to="/"/>} />
               </Route>
