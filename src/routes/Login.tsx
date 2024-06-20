@@ -21,9 +21,11 @@ export default function Login() {
       const email = evt.target.email.value
       const password = evt.target.password.value
       if (!email || !password) {
-        showErrorMessage('Todos os campos devem ser preenchidos.', 400)
+        setErrorMessage('Todos os campos devem ser preenchidos.')
+        setError(true);
         return false
       }
+
       const user = await loginUser(email, password)
       if (user.status === 200) {
         console.log(user.data)
