@@ -6,7 +6,7 @@ export default function Task() {
   return (
     <section id="task-container">
       <div id="task-header">
-        <h1>Tasks</h1>
+        <h1>Tarefas</h1>
         <h2 id="task-day"></h2>
       </div>
       <ul className="task-receiver">

@@ -7,7 +7,7 @@ import { DataContext } from "./context/data/data-context";
 import Login from "./routes/Login";
 import Cookies from 'js-cookie'
 import Register from "./routes/Register";
-import User from "./pages/User";
+import User from "./pages/user";
 import Home from "./components/home";
 import './styles/index.css'
 import CalendarPage from "./pages/CalendarPage";
@@ -19,8 +19,8 @@ import Notification from "./pages/Notification";
 
 export default function App() {
   const [auth, setAuth] = useState(false)
-  const [data, setData] = useState({})
-  const [user, setUser] = useState({})
+  const [data, setData] = useState([])
+  const [user, setUser] = useState([])
   const token = Cookies.get('token')
 
   const verifyJWT = (jwt: string) => {
