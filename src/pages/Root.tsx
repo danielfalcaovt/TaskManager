@@ -23,15 +23,17 @@ export default function Root() {
         const tasks = await getTasks(token)
         const user = await getUser(token)
         const notification = await getNotifications(token)
-        const allNotes = notes.data
-        const allTasks = tasks.data
-        const userInfo = user.data
-        const allNotifications = notification.data
-        setData({
-          tasks: allTasks,
-          notes: allNotes,
-          user: userInfo,
-          notifications: allNotifications
+        Promise.all([notes, tasks, user, notification]).then(() => {
+          const allNotes = notes.data
+          const allTasks = tasks.data
+          const userInfo = user.data
+          const allNotifications = notification.data
+          setData({
+            tasks: allTasks,
+            notes: allNotes,
+            user: userInfo,
+            notifications: allNotifications
+          })
         })
       } catch (error) {
           console.log(error)

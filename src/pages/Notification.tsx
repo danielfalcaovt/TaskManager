@@ -1,14 +1,17 @@
 import { useContext } from "react"
 import { DataContext } from "../context/data/data-context"
+import '../styles/components/notification.css'
 
 export default function Notification() {
-  const {data} = useContext(DataContext)
+  const { data } = useContext(DataContext)
 
   return (
     <>
       <div id="notifications-container">
-        <h1>Caixa de Mensagens</h1>
-        <div id="notification-receiver">
+        <div id="notifications-header">
+          <h1>Caixa de Mensagens</h1>
+        </div>
+        <div id="notifications-receiver">
           {data.notifications ? data.notifications.map((news) => {
             return (
               <div className="new" key={news.notificationid}>
