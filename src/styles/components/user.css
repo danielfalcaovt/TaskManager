@@ -5,17 +5,18 @@
 
 #user-container {
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr 0.5fr;
   height: 100%;
   width: 100%;
 }
 
 #user-container>h1 {
-  align-self: flex-start;
   margin-left: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   font-size: 2rem;
 }
 
@@ -29,6 +30,7 @@
   align-items: center;
   flex-direction: column;
   height: 25vh;
+  border-top: 1px solid #ffffffaf;
   margin: 15px;
 }
 
@@ -44,7 +46,12 @@
   margin: auto;
 }
 
+#user-info h1 {
+  text-align: center;
+}
+
 #user-info h2 {
+  text-align: center;
   overflow: hidden;
   font-size: 1.2rem;
   text-overflow: ellipsis;
@@ -52,6 +59,8 @@
 
 #user-details {
   display: flex;
+  border-top: 1px solid #ffffffaf;
+  border-bottom: 1px solid #ffffffaf;
   justify-content: center;
   align-items: center;
   flex-direction: column;

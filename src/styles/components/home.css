@@ -187,9 +187,13 @@
   width: 100%;
 }
 
+#calendar>table td {
+  width: 40px;
+}
+
 #calendar-tasks {
   width: 80%;
-  height: 90%;
+  height: 90%;  
   margin: auto;
 }
 

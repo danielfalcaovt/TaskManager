@@ -1,6 +1,14 @@
 import axios, { AxiosResponse } from "axios";
 
-export default async function postTask (data: string[], token: string): Promise<AxiosResponse<any, any> | boolean> {
+interface taskQuery {
+  user_id: string | undefined,
+  taskName : string | undefined,
+  taskText : string | undefined,
+  taskDay: string | undefined | number,
+  taskMonth: number | undefined
+}
+
+export default async function postTask (data: taskQuery, token: string | undefined): Promise<AxiosResponse<any, any> | boolean> {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }
