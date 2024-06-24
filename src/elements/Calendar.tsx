@@ -34,7 +34,6 @@ export default function Calendar() {
   }
 
   const { data, setData } = useContext(DataContext);
-  console.log(data)
   const [selectedDay, setSelectedDay] = useState();
   const [selectedDayStyle, setSelectedDayStyle] = useState({ background: '#7266F8', borderRadius: '25px' })
   async function handleGetDayTasks(day: any) {

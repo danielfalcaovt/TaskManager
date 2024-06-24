@@ -50,12 +50,12 @@ export default function Notes() {
     const { id } = data.user
     await deleteNotes({noteId, userId: id}, token)
     const allNotes = await getNotes(token)
-      setData((oldValue) => {
-        return {
-          ...oldValue,
-          notes: allNotes.data
-        }
-      })
+    setData((oldValue) => {
+      return {
+        ...oldValue,
+        notes: allNotes.data
+      }
+    })
   }
 
   return (

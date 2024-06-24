@@ -10,38 +10,42 @@ import getNotes from "../http/data/notes/get-notes";
 import getTasks from "../http/data/tasks/get-task";
 import getUser from "../http/data/users/get-user";
 import getNotifications from "../http/data/notifications/get-notifications";
+import { AxiosResponse } from "axios";
 
 export default function Root() {
   const { data, setData } = useContext(DataContext)
   const [load, setLoading] = useState(true)
-  const token = Cookies.get('token')
+  const token : string | undefined = Cookies.get('token')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const notes = await getNotes(token)
-        const tasks = await getTasks(token)
-        const user = await getUser(token)
-        const notification = await getNotifications(token)
-        Promise.all([notes, tasks, user, notification]).then(() => {
-          const allNotes = notes.data
-          const allTasks = tasks.data
-          const userInfo = user.data
-          const allNotifications = notification.data
-          setData({
-            tasks: allTasks,
-            notes: allNotes,
-            user: userInfo,
-            notifications: allNotifications
-          })
+  const fetchData = async () => {
+    try {
+      const notes : AxiosResponse = await getNotes(token)
+      const tasks : AxiosResponse = await getTasks(token)
+      const user : AxiosResponse = await getUser(token)
+      const notification : AxiosResponse = await getNotifications(token)
+      Promise.all([notes, tasks, user, notification]).then(() => {
+        let allNotes : any, allTasks : any, userInfo : any, allNotifications : any
+        notes.data ? allNotes = notes.data : ''
+        tasks.data ? allTasks = tasks.data : ''
+        user.data ? userInfo = user.data : ''
+        notification.data ? allNotifications = notification.data : ''
+        tasks.data.sort((a, b) => a.task_day - b.task_day)
+        setData({
+          tasks: allTasks,
+          notes: allNotes,
+          user: userInfo,
+          notifications: allNotifications,
+          token
         })
-      } catch (error) {
-          console.log(error)
-      } finally {
-        console.log(data);
-         setLoading(false)
-      }
+      })
+    } catch (error) {
+        console.log(error)
+    } finally {
+      console.log(data);
+       setLoading(false)
     }
+  }
+  useEffect(() => {
     fetchData()
   }, [])
 

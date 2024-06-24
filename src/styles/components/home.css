@@ -100,6 +100,7 @@
 .active-task {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .active-task:nth-child(odd) .task-divisor-bar {
@@ -113,6 +114,7 @@
 .active-task-day {
   display: flex;
   font-size: 1rem;
+  width: 100%;
   max-width: 65px;
   color: rgba(255, 255, 255, 0.623);
   padding: 0px 30px;
@@ -225,4 +227,16 @@
 
 #calendar-tasks>form>button:hover {
   transform: scale(1.05);
+}
+
+.delete-task {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0px;
+  cursor: pointer;
+}
+
+.delete-task>svg {
+  color: rgb(206, 43, 43);
 }
