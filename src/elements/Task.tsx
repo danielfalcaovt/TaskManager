@@ -2,25 +2,38 @@ import { useContext } from "react"
 import { DataContext } from "../context/data/data-context"
 import deleteTasks from "../http/data/tasks/delete-task"
 import Cookies from 'js-cookie'
-import getTasks from "../http/data/tasks/get-task"
+import { ITask } from "../http/data/tasks/services/task-interfaces"
 
 export default function Task() {
   const { data, setData } = useContext(DataContext)
   const token: string | undefined = Cookies.get('token')
-
+  console.log(data)
   async function removeTask(taskId: string) {
-    const { id } = data.user
-    await deleteTasks(token, id, taskId)
-    const allTasks = await getTasks(token)
-    setData((oldValue: any) => {
-      delete oldValue.selectedTasks
-      return {
-        ...oldValue,
-        selectedTasks: allTasks.data
-      }
-    })
+    try {
+      const { id } = data.user
+      await deleteTasks(token, id, taskId)
+      setData((oldValue: any) => {
+        const newValue = oldValue
+  
+        const taskRemoved = newValue.tasks.filter((task : ITask) => {
+          return task.task_id !== taskId
+        })
+        const selectedTaskRemoved = newValue.selectedTasks.filter((task : ITask) => {
+          return task ? task.task_id !== taskId : ''
+        })
+        newValue.tasks = taskRemoved
+        selectedTaskRemoved.length > 0 ? newValue.selectedTasks = selectedTaskRemoved : delete newValue.selectedTasks
+        return {
+          ...newValue
+        }
+      })
+      Cookies.remove('selectedDay')
+    } catch (error) {
+      console.log(error)
+      return false
+    }
   }
-
+  
   return (
     <section id="task-container">
       <div id="task-header">
@@ -87,7 +100,8 @@ export default function Task() {
       ) : ''
       }
 
-      {(!data.tasks && !data.selectedTasks) ? (
+      {((!data.tasks || data.tasks.length === 0) && (!data.selectedTasks || data.selectedTasks.length === 0)) 
+      ? (
         <li className="active-task">
           <h1 className="active-task-day"></h1>
           <div style={{background: 'red'}} className="task-divisor-bar"></div>
@@ -96,7 +110,8 @@ export default function Task() {
             <h2>Adicione a sua primeira tarefa!</h2>
           </div>
         </li>        
-      ):''}
+      )
+      :''}
       </ul>
     </section>
   )

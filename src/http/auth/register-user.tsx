@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
-export default async function registerUser(username:string, email: string, password: string, confirmPassword: string) {
+export default async function registerUser(username:string, email: string, password: string, confirmPassword: string) : Promise<AxiosResponse<any, any> | any> {
   try {
     const userData = {
       username,

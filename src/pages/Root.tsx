@@ -11,6 +11,8 @@ import getTasks from "../http/data/tasks/get-task";
 import getUser from "../http/data/users/get-user";
 import getNotifications from "../http/data/notifications/get-notifications";
 import { AxiosResponse } from "axios";
+import { ITask } from "../http/data/tasks/services/task-interfaces";
+import { INotes } from "../http/data/notes/services/notes-interfaces";
 
 export default function Root() {
   const { data, setData } = useContext(DataContext)
@@ -25,11 +27,11 @@ export default function Root() {
       const notification : AxiosResponse = await getNotifications(token)
       Promise.all([notes, tasks, user, notification]).then(() => {
         let allNotes : any, allTasks : any, userInfo : any, allNotifications : any
-        notes.data ? allNotes = notes.data : ''
-        tasks.data ? allTasks = tasks.data : ''
-        user.data ? userInfo = user.data : ''
-        notification.data ? allNotifications = notification.data : ''
-        tasks.data.sort((a, b) => a.task_day - b.task_day)
+        notes.data ? allNotes = notes.data : allNotes = []
+        tasks.data ? allTasks = tasks.data : allTasks = []
+        user.data ? userInfo = user.data : userInfo = []
+        notification.data ? allNotifications = notification.data : allNotifications = []
+        tasks.data.sort((a:any, b:any) => a.task_day - b.task_day)
         setData({
           tasks: allTasks,
           notes: allNotes,
@@ -37,6 +39,8 @@ export default function Root() {
           notifications: allNotifications,
           token
         })
+        console.log(data.tasks)
+        console.log('tasks ^')
       })
     } catch (error) {
         console.log(error)

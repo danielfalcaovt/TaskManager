@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export default async function getTasks(token: string): Promise<any> {
+export default async function getTasks(token: string | undefined): Promise<any> {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }

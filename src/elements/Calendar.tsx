@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { DataContext } from "../context/data/data-context";
 import postTask from "../http/data/tasks/post-task";
@@ -36,29 +35,24 @@ export default function Calendar() {
   }
 
   const { data, setData } = useContext(DataContext);
-  const [selectedDay, setSelectedDay] = useState();
-  const [selectedDayStyle, setSelectedDayStyle] = useState({ background: '#7266F8', borderRadius: '25px' })
+  const selectedDay = Cookies.get('selectedDay')
+  const [selectedDayStyle, setSelectedDayStyle] = useState({
+    background: "#7266F8",
+    borderRadius: "25px",
+  });
   async function handleGetDayTasks(day: any) {
     try {
-      setSelectedDay(day);
+      Cookies.set('selectedDay', day)
       const user = Cookies.get("user");
       const jwt = Cookies.get("token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      };
+ 
       taskMonth ? handleDaysInCalendar() : "";
       const todayDate = {
-        id: user,
+        userId: user,
         taskDay: day,
         taskMonth: Number(taskMonth + 1), // new Date().getMonth(); retorna o mês de 0 a 11
       };
-      const response = await axios.post(
-        "http://localhost:3000/tasks/filter",
-        todayDate,
-        config
-      );
+      const response = await getSpecificTask(todayDate, jwt)
       if (!response.data.error) {
         const dayTasks: object[] = [];
         for (let pos = 0; pos <= 3; pos++) {
@@ -88,42 +82,40 @@ export default function Calendar() {
     evt.preventDefault();
     const taskName = evt.target.taskName.value;
     const taskText = evt.target.taskText.value;
-    evt.target.taskName.value = ''
-    evt.target.taskText.value = ''
+    evt.target.taskName.value = "";
+    evt.target.taskText.value = "";
     if (taskName.length <= 20 && taskText.length <= 60) {
       const user = Cookies.get("user");
       const jwt = Cookies.get("token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      };
-      const actualMonth = Number(new Date().getMonth() + 1)
+      const actualMonth = Number(new Date().getMonth() + 1);
       const httpRequest = {
         user_id: user,
         taskName,
         taskText,
         taskDay: selectedDay,
-        taskMonth: actualMonth
+        taskMonth: actualMonth,
       };
       const getQuery = {
         userId: user,
         taskDay: selectedDay,
-        taskMonth: actualMonth
-      }
-      const response = await postTask(httpRequest, jwt)
-      const allTasks = await getSpecificTask(getQuery, jwt)
+        taskMonth: actualMonth,
+      };
+      const response = await postTask(httpRequest, jwt);
+      const allTasks = await getSpecificTask(getQuery, jwt);
       if (response && response.data) {
         setData((oldValue: any) => {
-          const newValue = oldValue
-          newValue.tasks.push(...allTasks.data)
+          const newValue = oldValue;
+          for (const task of allTasks.data) {
+            newValue.tasks.push(task);
+          }
+          console.log(allTasks.data)
+          newValue.selectedTasks = allTasks.data;
           return {
             ...newValue,
-            selectedTasks: allTasks.data
-          }
-        })
-      }else {
-        console.log(response)
+          };
+        });
+      } else {
+        console.log(response);
       }
     }
   }
@@ -152,26 +144,33 @@ export default function Calendar() {
             <tr>
               {calendarDays.slice(0, 7).map((day) => {
                 return day >= 20 ? (
-                  <td key={`${day}bmonth`}>
+                  <td draggable key={`${day}bmonth`}>
                     <span>{day}</span>
                   </td>
                 ) : (
                   <td
+                    draggable
                     key={day}
                     className={`day${day}`}
                     style={
-                      (selectedDay == day) ? selectedDayStyle : (data.tasks && data.tasks.length > 0) && data.tasks.find(task => task.task_day == day) ? {borderRadius: '25px', background: '#6C6B78'} : {}
+                      selectedDay == day
+                        ? selectedDayStyle
+                        : data.tasks &&
+                          data.tasks.length > 0 &&
+                          data.tasks.find((task) => task.task_day == day)
+                        ? { borderRadius: "25px", background: "#6C6B78" }
+                        : {}
                     }
                     onClick={() => {
                       if (selectedDay == day) {
-                        setSelectedDay(undefined)
-                        setData((oldValue : any) => {
-                          delete oldValue.selectedTasks
+                        Cookies.remove('selectedDay')
+                        setData((oldValue: any) => {
+                          delete oldValue.selectedTasks;
 
                           return {
-                            ...oldValue
-                          }
-                        })
+                            ...oldValue,
+                          };
+                        });
                       } else {
                         handleGetDayTasks(day);
                       }
@@ -187,23 +186,30 @@ export default function Calendar() {
                 return (
                   <td
                     key={day}
+                    draggable
                     className={`day${day}`}
                     style={
-                      (selectedDay == day) ? selectedDayStyle : (data.tasks && data.tasks.length > 0) && data.tasks.find(task => task.task_day == day) ? {borderRadius: '25px', background: '#6C6B78'} : {}
+                      selectedDay == day
+                        ? selectedDayStyle
+                        : data.tasks &&
+                          data.tasks.length > 0 &&
+                          data.tasks.find((task) => task.task_day == day)
+                        ? { borderRadius: "25px", background: "#6C6B78" }
+                        : {}
                     }
                     onClick={() => {
                       if (selectedDay == day) {
-                        setSelectedDay(undefined)
-                        setData((oldValue : any) => {
-                          delete oldValue.selectedTasks
+                        Cookies.remove('selectedDay')
+                        setData((oldValue: any) => {
+                          delete oldValue.selectedTasks;
 
                           return {
-                            ...oldValue
-                          }
-                        })
+                            ...oldValue,
+                          };
+                        });
                       } else {
                         handleGetDayTasks(day);
-                      }                    
+                      }
                     }}
                   >
                     {day}
@@ -215,24 +221,31 @@ export default function Calendar() {
               {calendarDays.slice(14, 21).map((day) => {
                 return (
                   <td
+                    draggable
                     key={day}
                     className={`day${day}`}
                     style={
-                      (selectedDay == day) ? selectedDayStyle : (data.tasks && data.tasks.length > 0) && data.tasks.find(task => task.task_day == day) ? {borderRadius: '25px', background: '#6C6B78'} : {}
-                    }                    
+                      selectedDay == day
+                        ? selectedDayStyle
+                        : data.tasks &&
+                          data.tasks.length > 0 &&
+                          data.tasks.find((task) => task.task_day == day)
+                        ? { borderRadius: "25px", background: "#6C6B78" }
+                        : {}
+                    }
                     onClick={() => {
                       if (selectedDay == day) {
-                        setSelectedDay(undefined)
-                        setData((oldValue : any) => {
-                          delete oldValue.selectedTasks
+                        Cookies.remove('selectedDay')
+                        setData((oldValue: any) => {
+                          delete oldValue.selectedTasks;
 
                           return {
-                            ...oldValue
-                          }
-                        })
+                            ...oldValue,
+                          };
+                        });
                       } else {
                         handleGetDayTasks(day);
-                      }                    
+                      }
                     }}
                   >
                     {day}
@@ -244,24 +257,31 @@ export default function Calendar() {
               {calendarDays.slice(21, 28).map((day) => {
                 return (
                   <td
+                    draggable
                     key={day}
                     className={`day${day}`}
                     style={
-                      (selectedDay == day) ? selectedDayStyle : (data.tasks && data.tasks.length > 0) && data.tasks.find(task => task.task_day == day) ? {borderRadius: '25px', background: '#6C6B78'} : {}
-                    }                    
+                      selectedDay == day
+                        ? selectedDayStyle
+                        : data.tasks &&
+                          data.tasks.length > 0 &&
+                          data.tasks.find((task) => task.task_day == day)
+                        ? { borderRadius: "25px", background: "#6C6B78" }
+                        : {}
+                    }
                     onClick={() => {
                       if (selectedDay == day) {
-                        setSelectedDay(undefined)
-                        setData((oldValue : any) => {
-                          delete oldValue.selectedTasks
+                        Cookies.remove('selectedDay')
+                        setData((oldValue: any) => {
+                          delete oldValue.selectedTasks;
 
                           return {
-                            ...oldValue
-                          }
-                        })
+                            ...oldValue,
+                          };
+                        });
                       } else {
                         handleGetDayTasks(day);
-                      }                    
+                      }
                     }}
                   >
                     {day}
@@ -272,28 +292,35 @@ export default function Calendar() {
             <tr>
               {calendarDays.slice(28, 35).map((day) => {
                 return day <= 7 ? (
-                  <td key={day} onClick={() => {}}>
+                  <td draggable key={day} onClick={() => {}}>
                     <span>{day}</span>
                   </td>
                 ) : (
                   <td
+                    draggable
                     className={`day${day}`}
                     style={
-                      (selectedDay == day) ? selectedDayStyle : (data.tasks && data.tasks.length > 0) && data.tasks.find(task => task.task_day == day) ? {borderRadius: '25px', background: '#6C6B78'} : {}
-                    }                    
+                      selectedDay == day
+                        ? selectedDayStyle
+                        : data.tasks &&
+                          data.tasks.length > 0 &&
+                          data.tasks.find((task) => task.task_day == day)
+                        ? { borderRadius: "25px", background: "#6C6B78" }
+                        : {}
+                    }
                     onClick={() => {
                       if (selectedDay == day) {
-                        setSelectedDay(undefined)
-                        setData((oldValue : any) => {
-                          delete oldValue.selectedTasks
+                        Cookies.remove('selectedDay')
+                        setData((oldValue: any) => {
+                          delete oldValue.selectedTasks;
 
                           return {
-                            ...oldValue
-                          }
-                        })
+                            ...oldValue,
+                          };
+                        });
                       } else {
                         handleGetDayTasks(day);
-                      }                    
+                      }
                     }}
                   >
                     {day}
@@ -305,29 +332,36 @@ export default function Calendar() {
               <tr>
                 {calendarDays.slice(35, 42).map((day) => {
                   return day <= 7 ? (
-                    <td key={`${day}bmonth`} onClick={() => {}}>
+                    <td draggable key={`${day}bmonth`} onClick={() => {}}>
                       <span>{day}</span>
                     </td>
                   ) : (
                     <td
+                      draggable
                       key={day}
                       className={`day${day}`}
                       style={
-                        (selectedDay == day) ? selectedDayStyle : (data.tasks && data.tasks.length > 0) && data.tasks.find(task => task.task_day == day) ? {borderRadius: '25px', background: '#6C6B78'} : {}
+                        selectedDay == day
+                          ? selectedDayStyle
+                          : data.tasks &&
+                            data.tasks.length > 0 &&
+                            data.tasks.find((task) => task.task_day == day)
+                          ? { borderRadius: "25px", background: "#6C6B78" }
+                          : {}
                       }
                       onClick={() => {
                         if (selectedDay == day) {
-                          setSelectedDay(undefined)
-                          setData((oldValue : any) => {
-                            delete oldValue.selectedTasks
-  
+                          Cookies.remove('selectedDay')
+                          setData((oldValue: any) => {
+                            delete oldValue.selectedTasks;
+
                             return {
-                              ...oldValue
-                            }
-                          })
+                              ...oldValue,
+                            };
+                          });
                         } else {
                           handleGetDayTasks(day);
-                        }                      
+                        }
                       }}
                     >
                       {day}

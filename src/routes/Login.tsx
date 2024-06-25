@@ -5,11 +5,10 @@ import Cookies from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
 import '../styles/auth/login.css'
 import { DataContext } from "../context/data/data-context"
-import { UserContext } from "../context/data/user-context"
+import { AxiosResponse } from "axios"
 
 export default function Login() {
   const { auth, setAuth } = useContext(authContext)
-  const { user, setUser } = useContext(UserContext)
   const { data, setData } = useContext(DataContext)
   const [hasError, setError] = useState(false)
   const [errorText, setErrorText] = useState('')
@@ -21,15 +20,19 @@ export default function Login() {
       const email = evt.target.email.value
       const password = evt.target.password.value
       if (!email || !password) {
-        setErrorMessage('Todos os campos devem ser preenchidos.')
         setError(true);
+        setErrorText('Todos os campos devem ser preenchidos.')
         return false
       }
 
-      const user = await loginUser(email, password)
+      const user : AxiosResponse = await loginUser(email, password)
       if (user.status === 200) {
-        console.log(user.data)
-        setUser(user.data)
+        setData((oldValue : any) => {
+          return {
+            ...oldValue,
+            user: user.data
+          }
+        })
         navigate('/')
         Cookies.set('user', user.data.user.id, { expires: 0.3 })
         Cookies.set('token', user.data.token, { expires: 0.3 })
@@ -42,7 +45,7 @@ export default function Login() {
   }
 
   function showPassword() {
-    const passwordInput = document.querySelector("#password-input-element")
+    const passwordInput : any = document.querySelector("#password-input-element")
     if (passwordInput.type === 'password') {
       passwordInput.type = 'text'
     } else {

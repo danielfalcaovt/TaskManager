@@ -6,7 +6,7 @@ interface taskQuery {
   taskMonth: number | undefined
 }
 
-export default async function getSpecificTask (data: taskQuery, token: string | undefined): Promise<AxiosResponse<any, any> | boolean> {
+export default async function getSpecificTask (data: taskQuery, token: string | undefined): Promise<any> {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }
