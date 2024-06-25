@@ -3,26 +3,24 @@ import Cookies from "js-cookie";
 import { DataContext } from "../context/data/data-context";
 import postTask from "../http/data/tasks/post-task";
 import getSpecificTask from "../http/data/tasks/get-specific-task";
+import { calendarDaysInName } from "./calendar/calendar-days";
 
 export default function Calendar() {
   const [calendarDays, setCalendarDays]: any = useState([]);
   const [taskMonth, setTaskMonth] = useState();
+  const [mesAtual, setMesAtual] = useState(new Date().getMonth())
 
   function handleDaysInCalendar() {
     const allDaysInArr: number[] = [];
     const anoAtual = new Date().getFullYear();
-    const mesAtual = new Date().getMonth();
     setTaskMonth(mesAtual);
-    const primeiroDiaDoMes = new Date(anoAtual, mesAtual, 1).getDay();
-    const ultimoDiaDoMes = new Date(anoAtual, mesAtual - 1, 0).getDate();
+    const ultimoDiaDoMesPassado = new Date(anoAtual, mesAtual, 0).getDate();
+    const ultimoDiaDoMes = new Date(anoAtual, mesAtual+1, 0).getDate()
+    const primeiroDiaDaSemana = new Date(anoAtual, mesAtual, 1).getDay()
     const ultimosDiasDaSemana = new Date(anoAtual, mesAtual + 1, 1).getDay();
     let primeiroDiaDoProxMes = new Date(anoAtual, mesAtual + 1, 1).getDate();
-    for (
-      let firstDays = ultimoDiaDoMes - primeiroDiaDoMes;
-      firstDays < ultimoDiaDoMes;
-      firstDays++
-    ) {
-      allDaysInArr.push(firstDays);
+    for (let primeirosDias = ultimoDiaDoMesPassado - primeiroDiaDaSemana + 1; primeirosDias <= ultimoDiaDoMesPassado; primeirosDias++) {
+      allDaysInArr.push(primeirosDias)
     }
     for (let day = 1; day <= ultimoDiaDoMes; day++) {
       allDaysInArr.push(day);
@@ -87,18 +85,17 @@ export default function Calendar() {
     if (taskName.length <= 20 && taskText.length <= 60) {
       const user = Cookies.get("user");
       const jwt = Cookies.get("token");
-      const actualMonth = Number(new Date().getMonth() + 1);
       const httpRequest = {
         user_id: user,
         taskName,
         taskText,
         taskDay: selectedDay,
-        taskMonth: actualMonth,
+        taskMonth: Number(mesAtual + 1)
       };
       const getQuery = {
         userId: user,
         taskDay: selectedDay,
-        taskMonth: actualMonth,
+        taskMonth: Number(mesAtual + 1)
       };
       const response = await postTask(httpRequest, jwt);
       const allTasks = await getSpecificTask(getQuery, jwt);
@@ -120,16 +117,49 @@ export default function Calendar() {
     }
   }
 
+  function decreaseMonth() {
+    if (mesAtual > 0 && mesAtual <= 11) {
+      setMesAtual((oldValue) => {
+        return oldValue -= 1
+      })
+      Cookies.remove('selectedDay')
+    }
+  }
+
+  function increaseMonth() {
+    if (mesAtual >= 0 && mesAtual < 11) {
+      setMesAtual((oldValue) => {
+        return oldValue += 1
+      })
+      Cookies.remove('selectedDay')
+    }
+  }
+
   useEffect(() => {
     handleDaysInCalendar();
-  }, []);
+  }, [mesAtual])
 
   return (
     <>
       <div id="calendar">
-        <h1>Calendário</h1>
+        <div id="calendar-head">
+          <h1>Calendário</h1>
+          <div id="calendar-month">
+            <svg onClick={() => {
+              decreaseMonth()
+            }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" color="white" fill="none">
+                <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span draggable>{calendarDaysInName[mesAtual]}</span>
+            <svg onClick={() => {
+              increaseMonth()
+            }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" color="white" fill="none">
+                <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
         <table>
-          <thead>
+          <thead draggable>
             <tr>
               <th>Dom</th>
               <th>Seg</th>
@@ -157,7 +187,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -193,7 +223,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -229,7 +259,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -265,7 +295,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -304,7 +334,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -345,7 +375,7 @@ export default function Calendar() {
                           ? selectedDayStyle
                           : data.tasks &&
                             data.tasks.length > 0 &&
-                            data.tasks.find((task) => task.task_day == day)
+                            data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
                           ? { borderRadius: "25px", background: "#6C6B78" }
                           : {}
                       }

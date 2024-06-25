@@ -11,8 +11,6 @@ import getTasks from "../http/data/tasks/get-task";
 import getUser from "../http/data/users/get-user";
 import getNotifications from "../http/data/notifications/get-notifications";
 import { AxiosResponse } from "axios";
-import { ITask } from "../http/data/tasks/services/task-interfaces";
-import { INotes } from "../http/data/notes/services/notes-interfaces";
 
 export default function Root() {
   const { data, setData } = useContext(DataContext)
@@ -20,33 +18,49 @@ export default function Root() {
   const token : string | undefined = Cookies.get('token')
 
   const fetchData = async () => {
+    let allNotes : any, allTasks : any, userInfo : any, allNotifications : any
     try {
       const notes : AxiosResponse = await getNotes(token)
       const tasks : AxiosResponse = await getTasks(token)
       const user : AxiosResponse = await getUser(token)
       const notification : AxiosResponse = await getNotifications(token)
-      Promise.all([notes, tasks, user, notification]).then(() => {
-        let allNotes : any, allTasks : any, userInfo : any, allNotifications : any
-        notes.data ? allNotes = notes.data : allNotes = []
-        tasks.data ? allTasks = tasks.data : allTasks = []
-        user.data ? userInfo = user.data : userInfo = []
-        notification.data ? allNotifications = notification.data : allNotifications = []
-        tasks.data.sort((a:any, b:any) => a.task_day - b.task_day)
-        setData({
-          tasks: allTasks,
-          notes: allNotes,
-          user: userInfo,
-          notifications: allNotifications,
-          token
-        })
-        console.log(data.tasks)
-        console.log('tasks ^')
-      })
+      if (notes.data) {
+        allNotes = notes.data
+      } else {
+        allNotes = []
+      }
+
+      if (tasks.data) {
+        allTasks = tasks.data
+      } else {
+        allTasks = []
+      }
+
+      if (user.data) {
+        userInfo = user.data
+      } else {
+        return new Error();
+      }
+
+      if (notification.data) {
+        allNotifications = notification.data
+      } else {
+        allNotifications = []
+      }
+      tasks.data.sort((a:any, b:any) => a.task_day - b.task_day)
     } catch (error) {
-        console.log(error)
+      console.log(error)
+      return false
     } finally {
+      setData({
+        tasks: allTasks,
+        notes: allNotes,
+        user: userInfo,
+        notifications: allNotifications,
+        token
+      })
       console.log(data);
-       setLoading(false)
+      setLoading(false)
     }
   }
   useEffect(() => {

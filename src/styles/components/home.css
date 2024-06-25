@@ -80,6 +80,36 @@
   height: 100%;
 }
 
+#calendar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 15px;
+}
+
+#calendar-month {
+  display: grid;
+  grid-template-columns: 30px 35px 30px;
+}
+
+#calendar-month span {
+  margin: auto;
+}
+
+#calendar-month svg {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#calendar-month svg:hover {
+  transform: scale(1.1);
+}
+
+#calendar-month svg:active {
+  transform: scale(1);
+}
+
 #function-schedule {
   grid-area: 2/2/3/3;
   overflow: hidden;
