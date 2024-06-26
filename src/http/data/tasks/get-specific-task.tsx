@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 interface taskQuery {
   userId: string | undefined,
@@ -14,6 +14,7 @@ export default async function getSpecificTask (data: taskQuery, token: string | 
     const dbResponse = await axios.post('http://localhost:3000/tasks/filter', data, config)
     return dbResponse
   } catch (error) {
+    console.log(error)
     return false   
   }
 }

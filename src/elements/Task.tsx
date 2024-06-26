@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { DataContext } from "../context/data/data-context"
 import deleteTasks from "../http/data/tasks/delete-task"
 import Cookies from 'js-cookie'
@@ -7,7 +7,6 @@ import { ITask } from "../http/data/tasks/services/task-interfaces"
 export default function Task() {
   const { data, setData } = useContext(DataContext)
   const token: string | undefined = Cookies.get('token')
-  console.log(data)
   async function removeTask(taskId: string) {
     try {
       const { id } = data.user
@@ -49,7 +48,7 @@ export default function Task() {
           <>
             {task && typeof task !== 'string' ?
                   <li className="active-task">
-                    <h1 className="active-task-day">{(task.task_day >= 1 && task.task_day <= 9 )?'0':''}{task.task_day}/{(task.task_month >= 1 && task.task_month <= 9 )?'0':''}{task.task_month}</h1>
+                    <h1 className="active-task-day">{(task.task_day >= 1 && task.task_day <= 9 )?'0':''}{task.task_day}/{(task.task_month <= 8 )?'0':''}{Number(task.task_month) + 1}</h1>
                     <div className="task-divisor-bar"></div>
                     <div className="active-task-about">
                       <h1>{task.task_name}</h1>
@@ -75,7 +74,7 @@ export default function Task() {
             <>
               {task && typeof task !== 'string' ?
                     <li className="active-task">
-                      <h1 className="active-task-day">{(task.task_day >= 1 && task.task_day <= 9 )?'0':''}{task.task_day}/{(task.task_month >= 1 && task.task_month <= 9 )?'0':''}{task.task_month}</h1>
+                      <h1 className="active-task-day">{(task.task_day >= 1 && task.task_day <= 9 )?'0':''}{task.task_day}/{(task.task_month <= 8 )?'0':''}{Number(task.task_month) + 1}</h1>
                       <div className="task-divisor-bar"></div>
                       <div className="active-task-about">
                         <h1>{task.task_name}</h1>
@@ -90,7 +89,7 @@ export default function Task() {
       {
         (data.selectedTasks && data.selectedTasks.error) ? (
         <li className="active-task">
-          <h1 className="active-task-day">{data.selectedTasks.task_day < 10 ? '0' : ''}{data.selectedTasks.task_day}/{data.selectedTasks.task_month < 10 ? '0' : ''}{data.selectedTasks.task_month}</h1>
+          <h1 className="active-task-day">{data.selectedTasks.task_day < 10 ? '0' : ''}{data.selectedTasks.task_day}/{data.selectedTasks.task_month <= 8 ? '0' : ''}{Number(data.selectedTasks.task_month) + 1}</h1>
           <div style={{background: 'red'}} className="task-divisor-bar"></div>
           <div className="active-task-about">
             <h1>Sem Tarefas</h1>

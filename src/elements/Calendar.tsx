@@ -4,6 +4,7 @@ import { DataContext } from "../context/data/data-context";
 import postTask from "../http/data/tasks/post-task";
 import getSpecificTask from "../http/data/tasks/get-specific-task";
 import { calendarDaysInName } from "./calendar/calendar-days";
+import { ITask } from "../http/data/tasks/services/task-interfaces";
 
 export default function Calendar() {
   const [calendarDays, setCalendarDays]: any = useState([]);
@@ -43,19 +44,20 @@ export default function Calendar() {
       Cookies.set('selectedDay', day)
       const user = Cookies.get("user");
       const jwt = Cookies.get("token");
- 
       taskMonth ? handleDaysInCalendar() : "";
       const todayDate = {
         userId: user,
         taskDay: day,
-        taskMonth: Number(taskMonth + 1), // new Date().getMonth(); retorna o mês de 0 a 11
+        taskMonth: Number(taskMonth)
       };
+      console.log(taskMonth)
       const response = await getSpecificTask(todayDate, jwt)
       if (!response.data.error) {
-        const dayTasks: object[] = [];
+        let dayTasks: object[] = [];
         for (let pos = 0; pos <= 3; pos++) {
           dayTasks.push(response.data[pos]);
         }
+        
         setData((oldValue) => {
           delete oldValue.error;
           return {
@@ -90,12 +92,12 @@ export default function Calendar() {
         taskName,
         taskText,
         taskDay: selectedDay,
-        taskMonth: Number(mesAtual + 1)
+        taskMonth: Number(mesAtual)
       };
       const getQuery = {
         userId: user,
         taskDay: selectedDay,
-        taskMonth: Number(mesAtual + 1)
+        taskMonth: Number(mesAtual)
       };
       const response = await postTask(httpRequest, jwt);
       const allTasks = await getSpecificTask(getQuery, jwt);
@@ -105,7 +107,13 @@ export default function Calendar() {
           for (const task of allTasks.data) {
             newValue.tasks.push(task);
           }
-          console.log(allTasks.data)
+          newValue.tasks = newValue.tasks.sort((a, b) => {
+            if (a.task_month !== b.task_month) {
+              return a.task_month - b.task_month; 
+            } else {
+              return a.task_day - b.task_day;
+            }
+          })
           newValue.selectedTasks = allTasks.data;
           return {
             ...newValue,
@@ -187,7 +195,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -223,7 +231,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -259,7 +267,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -295,7 +303,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -334,7 +342,7 @@ export default function Calendar() {
                         ? selectedDayStyle
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
+                          data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -375,7 +383,7 @@ export default function Calendar() {
                           ? selectedDayStyle
                           : data.tasks &&
                             data.tasks.length > 0 &&
-                            data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month - 1 == mesAtual)
+                            data.tasks.find((task) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                           ? { borderRadius: "25px", background: "#6C6B78" }
                           : {}
                       }

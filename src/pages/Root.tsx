@@ -47,7 +47,6 @@ export default function Root() {
       } else {
         allNotifications = []
       }
-      tasks.data.sort((a:any, b:any) => a.task_day - b.task_day)
     } catch (error) {
       console.log(error)
       return false
@@ -89,7 +88,6 @@ export default function Root() {
         <main id="app-container">
           <Outlet />
         </main>
-        <Nav />
       </div>
     </>
   )
