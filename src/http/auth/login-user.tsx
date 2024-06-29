@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosResponse } from 'axios'
 
-export default async function loginUser(email: string, password: string): Promise<AxiosResponse<any, any> | any> {
+interface IUserData {
+  email: string
+  password: string
+}
+
+export default async function loginUser(data: IUserData): Promise<AxiosResponse<any, any> | any> {
   try {
-    const userData = {
-      email,
-      password
-    }
-    const response = await axios.post('http://localhost:3000/login', userData)
+    const response = await axios.post('http://localhost:3000/login', data)
     return response
   } catch (error) {
     return error

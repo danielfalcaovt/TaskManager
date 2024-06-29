@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
 export default async function getTasks(token: string | undefined): Promise<any> {

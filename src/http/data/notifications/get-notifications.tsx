@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
-export default async function getNotifications(token: string): Promise<any> {
+export default async function getNotifications(token: string | undefined): Promise<any> {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }

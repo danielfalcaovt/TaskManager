@@ -1,4 +1,5 @@
-import { useContext } from "react"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useContext } from "react"
 import { DataContext } from "../context/data/data-context"
 import '../styles/components/notification.css'
 
@@ -12,7 +13,7 @@ export default function Notification() {
           <h1>Caixa de Mensagens</h1>
         </div>
         <div id="notifications-receiver">
-          {data.notifications ? data.notifications.map((news) => {
+          {data.notifications ? data.notifications.map((news: any) => {
             return (
               <div className="new" key={news.notificationid}>
                 <h1>{news.title}</h1>

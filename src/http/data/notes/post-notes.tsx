@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosResponse } from "axios";
 
-export default async function postNotes (data: object, token: string): Promise<AxiosResponse<any, any> | boolean> {
+export default async function postNotes (data: object, token: string | undefined): Promise<AxiosResponse<any, any> | boolean> {
   try {
+    if (!token) {
+      return false
+    }
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/components/home.css'
 import Calendar from '../elements/Calendar';
 import Task from '../elements/Task';

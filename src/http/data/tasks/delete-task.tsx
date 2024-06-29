@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
-export default async function deleteTasks(token: string, userId: string, taskId: string): Promise<any> {
+export default async function deleteTasks(token: string | undefined, userId: string, taskId: string): Promise<any> {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }

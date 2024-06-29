@@ -1,7 +1,7 @@
-import { Outlet, useNavigate } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Outlet } from "react-router-dom";
 import Header from "../components/header";
-import Nav from "../components/nav";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/data/data-context";
 import Aside from "../components/aside";
 import '../styles/components/App.css'
