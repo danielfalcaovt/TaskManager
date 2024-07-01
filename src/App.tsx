@@ -1,26 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import Root from "./pages/Root";
+import Root from "./presentation/view/pages/Root";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import RotasProtegidas from "./auth/rotasProtegidas";
-import { DataContext } from "./context/data/data-context";
-import Login from "./routes/Login";
+import RotasProtegidas from "./core/domain/rotasProtegidas";
+import { DataContext } from "./infrastructure/context/data/data-context";
+import Login from "./presentation/view/pages/Login";
 import Cookies from 'js-cookie'
-import Register from "./routes/Register";
-import User from "./pages/user";
-import Home from "./components/home";
-import './styles/index.css'
-import CalendarPage from "./pages/CalendarPage";
-import DayMessage from "./pages/DayMessage";
-import Config from "./pages/Config";
-import Notes from "./pages/Notes";
-import Notification from "./pages/Notification";
+import Register from "./presentation/view/pages/Register";
+import User from "./presentation/view/pages/user";
+import Home from "./presentation/view/components/home";
+import CalendarPage from "./presentation/view/pages/CalendarPage";
+import DayMessage from "./presentation/view/pages/DayMessage";
+import Config from "./presentation/view/pages/Config";
+import Notes from "./presentation/view/pages/Notes";
+import Notification from "./presentation/view/pages/Notification";
+import { IData } from "./infrastructure/services/data-interface";
 
 export default function App() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IData>(       
+  {  
+    notes: [],
+    notifications: [],
+    tasks: [],
+    token: undefined,
+    user: undefined
+  }
+  )
   const token = Cookies.get('token')
 
-  const verifyJWT = (jwt: any) => {
+  const verifyJWT = (jwt: string | undefined) => {
     if (jwt && typeof jwt === 'string') {
       return true
     }
