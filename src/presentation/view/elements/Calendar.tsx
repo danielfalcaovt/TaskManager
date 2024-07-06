@@ -87,10 +87,11 @@ export default function Calendar() {
     taskTitle: yup.string().max(20).required('Título Inválido.'),
     taskText: yup.string().max(60).required('Texto Inválido.')
   })
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(schema) })
 
   async function fetchCalendarTask(data: any, evt : any) {
     evt.preventDefault();
+    reset()
     if (mesAtual >= new Date().getMonth() && mesAtual <= 11) {
       if (mesAtual === new Date().getMonth()) {
         if (Number(selectedDay) < new Date().getDate()) {
@@ -468,7 +469,6 @@ export default function Calendar() {
                 type="text"
                 placeholder="Título da Tarefa"
               />
-              <span>{errors.taskTitle?.message}</span>
               <input
                 maxLength={60}
                 {...register('taskText')}

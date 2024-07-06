@@ -56,16 +56,6 @@
   left: 15px;
 }
 
-.error-container {
-  position: fixed;
-  display: none;
-  top: 0px;
-  left: 50%;
-  width: 70vw;
-  height: 25vh;
-  background: #232323;
-}
-
 .bg-gradient {
   display: relative;
   position: fixed;
