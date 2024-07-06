@@ -14,6 +14,7 @@ export default function Calendar() {
   const [calendarDays, setCalendarDays]: any = useState([]);
   const [taskMonth, setTaskMonth]:any = useState();
   const [mesAtual, setMesAtual]:any = useState(new Date().getMonth())
+  const [dataAtual, setDataAtual] = useState(new Date())
 
   function handleDaysInCalendar() {
     const allDaysInArr: number[] = [];
@@ -90,48 +91,59 @@ export default function Calendar() {
 
   async function fetchCalendarTask(data: any, evt : any) {
     evt.preventDefault();
-    const user = Cookies.get("user");
-    const jwt = Cookies.get("token");
-    const httpRequest = {
-      user_id: user,
-      taskDay: Number(selectedDay),
-      taskMonth: Number(mesAtual),
-      ...data
-    };
-    const getQuery = {
-      userId: user,
-      taskDay: Number(selectedDay),
-      taskMonth: Number(mesAtual)
-    };
-    const response : any = await postTask(httpRequest, jwt);
-    const allTasks = await getSpecificTask(getQuery, jwt);
-    if (response && response.data) {
-      setData((oldValue: any) => {
-        delete oldValue.error
-        const newValue = oldValue;
-        for (const task of allTasks.data) {
-          newValue.tasks.push(task);
+    if (mesAtual >= new Date().getMonth() && mesAtual <= 11) {
+      if (mesAtual === new Date().getMonth()) {
+        if (Number(selectedDay) < new Date().getDate()) {
+          console.log("error aqui")
+          return false
         }
-        newValue.tasks = newValue.tasks.sort((a: any, b: any) => {
-          if (a.task_month !== b.task_month) {
-            return a.task_month - b.task_month; 
-          } else {
-            return a.task_day - b.task_day;
+      }
+      const user = Cookies.get("user");
+      const jwt = Cookies.get("token");
+      const httpRequest = {
+        user_id: user,
+        taskDay: Number(selectedDay),
+        taskMonth: Number(mesAtual),
+        ...data
+      };
+      const getQuery = {
+        userId: user,
+        taskDay: Number(selectedDay),
+        taskMonth: Number(mesAtual)
+      };
+      const response : any = await postTask(httpRequest, jwt);
+      const allTasks = await getSpecificTask(getQuery, jwt);
+      if (response && response.data) {
+        setData((oldValue: any) => {
+          delete oldValue.error
+          const newValue = oldValue;
+          for (const task of allTasks.data) {
+            newValue.tasks.push(task);
           }
-        })
-        newValue.selectedTasks = allTasks.data;
-        console.log(newValue.selectedTasks)
-        return {
-          ...newValue,
-        };
-      });
-    } else {
-      console.log(response);
+          newValue.tasks = newValue.tasks.sort((a: any, b: any) => {
+            if (a.task_month !== b.task_month) {
+              return a.task_month - b.task_month; 
+            } else {
+              return a.task_day - b.task_day;
+            }
+          })
+          newValue.selectedTasks = allTasks.data;
+          return {
+            ...newValue,
+          };
+        });
+      } else {
+        console.log("error aqui") // TODO: modificar modal de erro
+        return false
+      }
+    }else {
+      console.log("error aqui") // TODO: modificar modal de erro
+      return false
     }
   }
 
   function decreaseMonth() {
-    if (mesAtual > 0 && mesAtual <= 11) {
+    if (mesAtual > dataAtual.getMonth() && mesAtual <= 11) {
       setMesAtual((oldValue: any) => {
         return oldValue -= 1
       })
@@ -140,7 +152,9 @@ export default function Calendar() {
   }
 
   function increaseMonth() {
-    if (mesAtual >= 0 && mesAtual < 11) {
+    console.log(mesAtual)
+    console.log(new Date().getMonth())
+    if (mesAtual < 11) {
       setMesAtual((oldValue:any) => {
         return oldValue += 1
       })
@@ -198,9 +212,11 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
+                        : (mesAtual === dataAtual.getMonth() && day === dataAtual.getDate() )
+                        ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
-                          data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
+                          data.tasks.find((task: any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
                         ? { borderRadius: "25px", background: "#6C6B78" }
                         : {}
                     }
@@ -234,6 +250,8 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
+                        : day === dataAtual.getDate() 
+                        ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
                           data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
@@ -270,6 +288,8 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
+                        : day === dataAtual.getDate() 
+                        ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
                           data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
@@ -306,6 +326,8 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
+                        : day === dataAtual.getDate() 
+                        ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
                           data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
@@ -345,6 +367,8 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
+                        : day === dataAtual.getDate() 
+                        ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
                           data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
@@ -384,13 +408,15 @@ export default function Calendar() {
                       key={day}
                       className={`day${day}`}
                       style={
-                        selectedDay == day // CHECK IF DAY IS CLICKED
-                          ? selectedDayStyle
-                          : data.tasks && // CHECK IF HAS A TASK IN THE DAY
-                            data.tasks.length > 0 &&
-                            data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
-                          ? { borderRadius: "25px", background: "#6C6B78" }
-                          : {}
+                        selectedDay == day
+                        ? selectedDayStyle
+                        : day === dataAtual.getDate() 
+                        ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
+                        : data.tasks &&
+                          data.tasks.length > 0 &&
+                          data.tasks.find((task:any) => task.task_day == day && task.task_day == day && task.task_month == mesAtual)
+                        ? { borderRadius: "25px", background: "#6C6B78" }
+                        : {}
                       }
                       onClick={() => {
                         if (selectedDay == day) {

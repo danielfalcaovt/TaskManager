@@ -1,0 +1,28 @@
+#calendar-page{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+}
+#calendar-page-header{
+
+}
+#tasks-container{
+
+}
+.task-body{
+
+}
+.task-header{
+
+}
+.task-when{
+
+}
+.task-main{
+
+}
+.task-footer{
+
+}

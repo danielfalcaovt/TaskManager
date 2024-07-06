@@ -56,10 +56,10 @@ export default function App() {
             <Route path="profile" element={<User />} />
             <Route path="config" element={<Config/>}/>
             <Route path="notification" element={<Notification/>}/>
-            <Route path="forget" element={<h1>Test</h1>}/>
             <Route path="/*" element={<Navigate to="/"/>} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/forget" element={<h1>Test</h1>}/>
           <Route path="/register" element={<Register />} />
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
