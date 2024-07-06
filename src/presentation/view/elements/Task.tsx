@@ -11,7 +11,6 @@ export default function Task() {
   const token: string | undefined = Cookies.get('token')
   async function removeTask(taskId: string) {
     try {
-      console.log(data)
       const id = data.user?.id
       if (!token || !id || !taskId) {
         return false
