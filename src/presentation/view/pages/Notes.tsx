@@ -42,7 +42,6 @@ export default function Notes() {
   async function removeNote(noteId: string) {
     const id = data.user?.id
     if (!id) {
-      //
       return false
     }
     await deleteNotes({noteId, userId: id}, token)
