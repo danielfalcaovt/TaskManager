@@ -10,7 +10,6 @@ import Register from "./presentation/view/pages/Register";
 import User from "./presentation/view/pages/user";
 import Home from "./presentation/view/components/home";
 import CalendarPage from "./presentation/view/pages/CalendarPage";
-import DayMessage from "./presentation/view/pages/DayMessage";
 import Config from "./presentation/view/pages/Config";
 import Notes from "./presentation/view/pages/Notes";
 import Notification from "./presentation/view/pages/Notification";
@@ -52,7 +51,6 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="notes" element={<Notes />} />
             <Route path="calendar" element={<CalendarPage />} />
-            <Route path="daymessage" element={<DayMessage />} />
             <Route path="profile" element={<User />} />
             <Route path="config" element={<Config/>}/>
             <Route path="notification" element={<Notification/>}/>

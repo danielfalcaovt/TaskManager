@@ -201,7 +201,13 @@ export default function Calendar() {
             <tr>
               {calendarDays.slice(0, 7).map((day:any) => {
                 return day >= 20 ? (
-                  <td draggable key={`${day}bmonth`}>
+                  <td
+                    draggable
+                    key={`${day}bmonth`}
+                    onClick={() => {
+                      decreaseMonth()
+                    }}
+                    >
                     <span>{day}</span>
                   </td>
                 ) : (
@@ -212,7 +218,7 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
-                        : (mesAtual === dataAtual.getMonth() && day === dataAtual.getDate() )
+                        : (mesAtual === dataAtual.getMonth() && day === dataAtual.getDate())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -250,7 +256,7 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
-                        : day === dataAtual.getDate() 
+                        : (mesAtual === dataAtual.getMonth() && day === dataAtual.getDate())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -357,7 +363,12 @@ export default function Calendar() {
             <tr>
               {calendarDays.slice(28, 35).map((day:any) => {
                 return day <= 7 ? (
-                  <td draggable key={day} onClick={() => {}}>
+                  <td
+                   draggable 
+                   key={day} 
+                   onClick={() => {
+                    increaseMonth()
+                   }}>
                     <span>{day}</span>
                   </td>
                 ) : (
@@ -399,7 +410,12 @@ export default function Calendar() {
               <tr>
                 {calendarDays.slice(35, 42).map((day:any) => {
                   return day <= 7 ? (
-                    <td draggable key={`${day}bmonth`} onClick={() => {}}>
+                    <td 
+                    draggable 
+                    key={`${day}bmonth`} 
+                    onClick={() => {
+                      increaseMonth()
+                    }}>
                       <span>{day}</span>
                     </td>
                   ) : (
