@@ -23,7 +23,7 @@ export default function Task() {
           return task?.task_id !== taskId
         })
         const selectedTaskRemoved = newValue.selectedTasks?.filter((task : ITask) => {
-          return task?.task_id !== taskId
+          return task?.task_id !== taskId && task !== undefined
         })
         newValue.tasks = taskRemoved
         selectedTaskRemoved?.length > 0 ? newValue.selectedTasks = selectedTaskRemoved : delete newValue.selectedTasks

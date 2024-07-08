@@ -1,12 +1,19 @@
-import React from 'react'
+import React from "react";
+import RemoveButton from "../elements/buttons/RemoveButton";
 
 export default function Config() {
+
   return (
-    <>
-      <h1>Config</h1>
-    </>
-      // Botão para remover todas as notes
-      // Botão para remover todas as Tarefas
-      // Botão para alterar cor do dia selecionado
-  )
-};
+    <section id="config-container">
+      <div id="tasks-config">
+        <RemoveButton 
+          onClick={() => {
+          }}
+        />
+      </div>
+    </section>
+    // Botão para remover todas as notes
+    // Botão para remover todas as Tarefas
+    // Botão para alterar cor do dia selecionado
+  );
+}
