@@ -3,8 +3,19 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../../../infrastructure/context/data/data-context";
 
-export default function DeleteModal(props: any) {
-    const {data, setData} = useContext(DataContext)
+interface IRemoveFunction {
+  closeModal: () => void
+  modalDisplay: string
+  removeFunction: {
+    remove: () => void
+    target: string
+  }
+}
+
+export default function DeleteModal(props: IRemoveFunction) {
+  console.log(props)
+  const {data, setData} = useContext(DataContext)
+  console.log(props.removeFunction.target)
   return (
     <div className={`card ${props.modalDisplay}`}>
       <div className="header">
@@ -26,11 +37,11 @@ export default function DeleteModal(props: any) {
         <div className="content">
           <span className="title">Deletar todas as tarefas</span>
           <p className="message">
-           Você tem certeza que deseja deletar todas as {data.tasks?.length} tarefas encontradas?.
+           Você tem certeza que deseja deletar todas as {props.removeFunction.target === 'tasks' ? data.tasks?.length : data.notes?.length} {props.removeFunction.target === 'tasks' ? "tarefas" : "notas"} encontradas?.
           </p>
         </div>
         <div className="actions">
-          <button className="desactivate" type="button" onClick={props.removeTasks}>
+          <button className="desactivate" type="button" onClick={props.removeFunction.remove}>
             Deletar todas as tarefas
           </button>
           <button className="cancel" type="button" onClick={props.closeModal}>
