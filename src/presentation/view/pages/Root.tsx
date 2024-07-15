@@ -35,7 +35,13 @@ export default function Root() {
       }
 
       if (tasks.data) {
-        allTasks = tasks.data
+        allTasks = tasks.data.sort((a: any, b: any) => {
+          if (a.task_month !== b.task_month) {
+            return a.task_month - b.task_month; 
+          } else {
+            return a.task_day - b.task_day;
+          }
+        })
       } else {
         allTasks = []
       }
