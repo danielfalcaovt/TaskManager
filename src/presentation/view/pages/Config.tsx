@@ -81,42 +81,42 @@ export default function Config() {
         <div id="config-header">
           <h1>Configurações</h1>
         </div>
-        <div id="tasks-config">
-          <h2>
-            Deletar todas as tarefas
-          </h2>
-          <RemoveButton 
-            onClick={() => {
-              if (data.tasks.length > 0) {
-                setRemoveFunction({
-                  remove: removeTasks,
-                  target: 'tasks'
-                })
-                OpenModal()
-              }
-            }}
-          />
-        </div>
-        <div id="notes-config">
-          <h2>
-            Deletar todas as notas
-          </h2>
-          <RemoveButton 
-            onClick={() => {
-              if (data.notes.length > 0) {
-                setRemoveFunction({
-                  remove: removeNotes,
-                  target: 'notes'
-                })
-                OpenModal()
-              }
-            }}
-          />
+        <div id="config-methods">
+          <div id="tasks-config">
+            <h2>
+              Deletar todas as tarefas
+            </h2>
+            <RemoveButton 
+              onClick={() => {
+                if (data.tasks.length > 0) {
+                  setRemoveFunction({
+                    remove: removeTasks,
+                    target: 'tasks'
+                  })
+                  OpenModal()
+                }
+              }}
+            />
+          </div>
+          <div id="notes-config">
+            <h2>
+              Deletar todas as notas
+            </h2>
+            <RemoveButton 
+              onClick={() => {
+                if (data.notes.length > 0) {
+                  setRemoveFunction({
+                    remove: removeNotes,
+                    target: 'notes'
+                  })
+                  OpenModal()
+                }
+              }}
+              />
+          </div>
         </div>
       </section>
     </>
-    // Botão para remover todas as notes
-    // Botão para remover todas as Tarefas
     // Botão para alterar cor do dia selecionado
   );
 }

@@ -83,7 +83,9 @@ export default function CalendarPage() {
                 </li>
               )
             })
-            : <h1>Adicione sua primeira tarefa!</h1>
+            : <div id='add-tasks-message'>
+                <h1>Adicione sua primeira tarefa!</h1>
+              </div>
           }
         </ul>
       </article>
