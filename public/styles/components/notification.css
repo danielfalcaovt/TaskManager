@@ -1,14 +1,14 @@
 #notifications-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 0.8fr;
+    grid-template-rows: 0.3fr 0.7fr;
     height: 100%;
     width: 100%;
+    padding: 25px;
 }
 
 #notifications-header {
     display: flex;
-    margin: 15px;
     color: white;
     justify-content: flex-start;
     align-items: center;
@@ -22,7 +22,6 @@
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
-    margin: 15px;
 }
 
 #notifications-receiver>.new {
