@@ -38,8 +38,6 @@ export default function Task() {
     }
   }
 
-  console.log(data)
-
   return (
     <section id="task-container">
       <div id="task-header">

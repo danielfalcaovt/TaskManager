@@ -90,12 +90,12 @@ export default function Calendar() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(schema) })
 
   async function fetchCalendarTask(data: any, evt : any) {
-    evt.preventDefault();
+    evt.preventDefault()
     reset()
     if (mesAtual >= new Date().getMonth() && mesAtual <= 11) {
       if (mesAtual === new Date().getMonth()) {
         if (Number(selectedDay) < new Date().getDate()) {
-          console.log("error aqui")
+          // interceptar caso a data seja passada.
           return false
         }
       }
@@ -113,24 +113,24 @@ export default function Calendar() {
         taskMonth: Number(mesAtual)
       };
       const response : any = await postTask(httpRequest, jwt);
-      const allTasks = await getSpecificTask(getQuery, jwt);
+      const insertedTask = await getSpecificTask(getQuery, jwt);
+      console.log(response.data)
       if (response && response.data) {
         setData((oldValue: any) => {
           delete oldValue.error
-          const newValue = oldValue;
-          for (const task of allTasks.data) {
-            newValue.tasks.push(task);
-          }
-          newValue.tasks = newValue.tasks.sort((a: any, b: any) => {
+          let newTasks = oldValue.tasks;
+          newTasks.push(response.data[0]);
+          newTasks = newTasks.sort((a: any, b: any) => {
             if (a.task_month !== b.task_month) {
               return a.task_month - b.task_month; 
             } else {
               return a.task_day - b.task_day;
             }
-          })
-          newValue.selectedTasks = allTasks.data;
+          })  
           return {
-            ...newValue,
+            ...oldValue,
+            tasks: newTasks,
+            selectedTasks: insertedTask.data
           };
         });
       } else {
