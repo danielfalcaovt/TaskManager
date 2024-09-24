@@ -59,7 +59,7 @@ export default function Notes() {
     receivedData.userId = data.user?.id
     const dbResponse = await updateNotes(receivedNote, token)
     if (!dbResponse) {
-      console.log('sem resposta')
+      
       return false
     }
     const allNotes = await getNotes(token)

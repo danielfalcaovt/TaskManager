@@ -64,7 +64,7 @@ export default function Root() {
         allNotifications = []
       }
     } catch (error) {
-      console.log(error)
+      
       return false
     } finally {
       setData({

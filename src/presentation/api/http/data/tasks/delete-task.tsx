@@ -7,7 +7,7 @@ export default async function deleteTasks(token: string | undefined, userId: str
       headers: { Authorization: `Bearer ${token}` }
     }
     const dbResponse = await axios.delete(`http://localhost:3000/tasks/${userId}/${taskId}`, config)
-    console.log(dbResponse)
+    
     return dbResponse
   } catch (error) {
     return false

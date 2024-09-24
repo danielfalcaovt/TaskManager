@@ -23,7 +23,7 @@ export default function Config() {
       return false
     }
     const { token, user: { id } } = data
-    console.log('tarefas')
+    
     if (token && id) {
       const deletedTasks = await deleteAllTasks(token, id, true)
       if (deletedTasks.status === 200) {
@@ -46,7 +46,7 @@ export default function Config() {
       return false
     }
     const { token, user: { id } } = data
-    console.log('notas')
+    
     if (token && id) {
       const deletedNotes = await deleteAllNotes(token, id, true)
       if (deletedNotes.status === 200) {

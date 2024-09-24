@@ -79,7 +79,7 @@ export default function Calendar() {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error)
     }
   }
 
@@ -114,7 +114,7 @@ export default function Calendar() {
       };
       const response : any = await postTask(httpRequest, jwt);
       const insertedTask = await getSpecificTask(getQuery, jwt);
-      console.log(response.data)
+      
       if (response && response.data) {
         setData((oldValue: any) => {
           delete oldValue.error
@@ -134,11 +134,11 @@ export default function Calendar() {
           };
         });
       } else {
-        console.log("error aqui") // TODO: modificar modal de erro
+        
         return false
       }
     }else {
-      console.log("error aqui") // TODO: modificar modal de erro
+      
       return false
     }
   }
@@ -153,8 +153,8 @@ export default function Calendar() {
   }
 
   function increaseMonth() {
-    console.log(mesAtual)
-    console.log(new Date().getMonth())
+    
+    
     if (mesAtual < 11) {
       setMesAtual((oldValue:any) => {
         return oldValue += 1

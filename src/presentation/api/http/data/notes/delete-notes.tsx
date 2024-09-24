@@ -15,7 +15,6 @@ export default async function deleteNotes (data: notesData, token: string | unde
       headers: { Authorization: `Bearer ${token}` }
     }
     const dbResponse = await axios.delete(`http://localhost:3000/notes/${data.noteId}/${data.userId}`, config)
-    console.log(dbResponse);
     return dbResponse
   } catch (error) {
     return false

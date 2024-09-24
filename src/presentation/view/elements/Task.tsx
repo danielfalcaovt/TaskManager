@@ -33,7 +33,7 @@ export default function Task() {
       })
       Cookies.remove('selectedDay')
     } catch (error) {
-      console.log(error)
+      
       return false
     }
   }

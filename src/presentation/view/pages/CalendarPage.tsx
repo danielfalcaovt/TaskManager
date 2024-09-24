@@ -39,7 +39,7 @@ export default function CalendarPage() {
       })
       Cookies.remove('selectedDay')
     } catch (error) {
-      console.log(error)
+      
       return false
     }
   }

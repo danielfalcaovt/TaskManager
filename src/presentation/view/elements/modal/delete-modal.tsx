@@ -13,9 +13,9 @@ interface IRemoveFunction {
 }
 
 export default function DeleteModal(props: IRemoveFunction) {
-  console.log(props)
+  
   const {data, setData} = useContext(DataContext)
-  console.log(props.removeFunction.target)
+  
   return (
     <div className={`card ${props.modalDisplay}`}>
       <div className="header">

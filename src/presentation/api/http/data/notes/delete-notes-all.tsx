@@ -8,13 +8,11 @@ export default async function deleteAllNotes(token: string | undefined, userId: 
     }
     if (sure) {
         const dbResponse = await axios.delete(`http://localhost:3000/notes/${userId}/1/all`, config)
-        console.log(dbResponse)
         return dbResponse
     } else {
         return false
     }
   } catch (error) {
-    console.log(error)
     return false
   }
 }
