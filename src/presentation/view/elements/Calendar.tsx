@@ -44,6 +44,7 @@ export default function Calendar() {
     background: "#7266F8",
     borderRadius: "25px"
   })
+  console.log(mesAtual)
 
   async function handleGetDayTasks(day: any) {
     try {
@@ -219,7 +220,7 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
-                        : (mesAtual === dataAtual.getMonth() && day === dataAtual.getDate())
+                        : (day === dataAtual.getDate() && mesAtual === dataAtual.getMonth())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -257,7 +258,7 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
-                        : (mesAtual === dataAtual.getMonth() && day === dataAtual.getDate())
+                        : (day === dataAtual.getDate() && mesAtual === dataAtual.getMonth())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -295,7 +296,7 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
-                        : day === dataAtual.getDate() 
+                        : (day === dataAtual.getDate() && mesAtual === dataAtual.getMonth())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -333,7 +334,7 @@ export default function Calendar() {
                     style={
                       selectedDay == day
                         ? selectedDayStyle
-                        : day === dataAtual.getDate() 
+                        : (day === dataAtual.getDate() && mesAtual === dataAtual.getMonth())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -377,9 +378,9 @@ export default function Calendar() {
                     draggable
                     className={`day${day}`}
                     style={
-                      selectedDay == day
+                      selectedDay == day && mesAtual
                         ? selectedDayStyle
-                        : day === dataAtual.getDate() 
+                        : (day === dataAtual.getDate() && mesAtual === dataAtual.getMonth())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
@@ -427,7 +428,7 @@ export default function Calendar() {
                       style={
                         selectedDay == day
                         ? selectedDayStyle
-                        : day === dataAtual.getDate() 
+                        : (day === dataAtual.getDate() && mesAtual === dataAtual.getMonth())
                         ? { borderRadius: "25px", background: "#E1E1E1", color: "#171717" } 
                         : data.tasks &&
                           data.tasks.length > 0 &&
