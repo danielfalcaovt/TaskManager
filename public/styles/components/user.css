@@ -3,12 +3,19 @@
   color: white;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 0.5fr 0.5fr 0.2fr;
+  grid-template-rows: 0.7fr 1fr;
   height: 100%;
   width: 100%;
 }
 
-#user-container>h1 {
+#user-config {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#user-config>h1 {
   font-size: 2rem;
 }
 
@@ -34,7 +41,6 @@
   flex-direction: column;
   height: 25vh;
   border-top: 1px solid #ffffffaf;
-  margin: 15px;
 }
 
 #user-info>div {
@@ -68,7 +74,6 @@
   align-items: center;
   flex-direction: column;
   height: 25vh;
-  margin: 15px;
 }
 
 #user-details>div {

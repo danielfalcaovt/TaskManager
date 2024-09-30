@@ -4,14 +4,16 @@ import { DataContext } from "../infrastructure/context/data/data-context"
 
 export default function User() {
   const { data } = useContext(DataContext)
-  console.log(data)
+
   return (
     <section id="user">
         {
           data.user ? (
             <>
             <div id="user-container">
-              <h1>Sobre mim:</h1>
+              <div id="user-config">
+                <h1>Sobre mim:</h1>
+              </div>
               <div>
                 <div id="user-info">
                   <div>
