@@ -58,7 +58,7 @@ export default function CalendarPage() {
                 <li className='task-body' key={task.task_id}>
                   <div className='task-header'>
                     <h2>
-                      {task.task_day}/{Number(task.task_month) < 10 ? 0 : ''}{task.task_month}
+                      {task.task_day}/{Number(task.task_month) < 10 ? 0 : ''}{Number(task.task_month) + 1}
                     </h2>
                   </div>
                   <div className='divisor-bar'></div>
