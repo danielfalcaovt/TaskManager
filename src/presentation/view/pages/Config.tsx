@@ -98,7 +98,7 @@ export default function Config() {
               }}
             />
           </div>
-          <div id="notes-config">
+          <div id="config-page">
             <h2>
               Deletar todas as notas
             </h2>

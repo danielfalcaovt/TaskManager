@@ -172,13 +172,13 @@
   font-size: 2rem;
 }
 
-#tasks-config, #notes-config {
+#tasks-config {
   display: grid;
   grid-template-columns: 0.7fr 0.3fr;
   grid-template-rows: 1fr;
   width: 80%;
 }
-#tasks-config > *, #notes-config>* {
+#tasks-config > * {
   margin: auto;
 }
 

@@ -12,7 +12,7 @@ export default function User() {
             <>
             <div id="user-container">
               <div id="user-config">
-                <h1>Sobre mim:</h1>
+                <h1>Usuário</h1>
               </div>
               <div>
                 <div id="user-info">
