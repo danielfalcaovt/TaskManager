@@ -6,8 +6,8 @@ export default async function deleteAllNotes(token: string | undefined, userId: 
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     }
-    if (sure) {
-        const dbResponse = await axios.delete(`http://localhost:3000/notes/${userId}/1/all`, config)
+    if (sure) { 
+        const dbResponse = await axios.delete(`http://localhost:3000/notes/deleteAll?id=${userId}`, config)
         return dbResponse
     } else {
         return false

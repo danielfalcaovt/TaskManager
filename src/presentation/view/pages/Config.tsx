@@ -82,9 +82,9 @@ export default function Config() {
           <h1>Configurações</h1>
         </div>
         <div id="config-methods">
-          <div id="tasks-config">
+          <div className="config-page">
             <h2>
-              Deletar todas as tarefas
+              Deletar todas as tarefas existentes na conta
             </h2>
             <RemoveButton 
               onClick={() => {
@@ -98,9 +98,9 @@ export default function Config() {
               }}
             />
           </div>
-          <div id="config-page">
+          <div className="config-page">
             <h2>
-              Deletar todas as notas
+              Deletar todas as anotações existentes na conta
             </h2>
             <RemoveButton 
               onClick={() => {
